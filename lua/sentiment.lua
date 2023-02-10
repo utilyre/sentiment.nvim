@@ -3,11 +3,11 @@ local M = {}
 function M.setup()
   vim.g.loaded_matchparen = 1
 
-  local nsnr = vim.api.nvim_create_namespace("matchparen")
+  local nsnr = vim.api.nvim_create_namespace("sentiment")
 
   -- vim.api.nvim_buf_add_highlight(bufnr, ns, "MatchParen", 3, 1, -1)
   vim.api.nvim_create_autocmd("CursorHold", {
-    group = vim.api.nvim_create_augroup("matchparen", {}),
+    group = vim.api.nvim_create_augroup("sentiment", {}),
     callback = function(a)
       local matchpairs = vim.opt.matchpairs:get()
       local openings = {}
@@ -28,7 +28,6 @@ function M.setup()
       local pos
       for _, opening in ipairs(openings) do
         local start, endi = line:find(opening, 1, true)
-        vim.pretty_print(start, endi)
 
         if start ~= nil then
           pos = { start, endi }
