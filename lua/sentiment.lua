@@ -10,6 +10,8 @@ function M.setup()
   vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
     group = vim.api.nvim_create_augroup("sentiment", {}),
     callback = function(a)
+      if vim.bo[a.buf].buftype ~= "" then return end
+
       local matchpairs = vim.opt.matchpairs:get()
       local lefts = {}
       local rights = {}
