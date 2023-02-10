@@ -49,7 +49,7 @@ function M.setup()
       end
 
       vim.api.nvim_buf_clear_namespace(a.buf, nsnr, 0, -1)
-      if pair ~= nil then pair:draw(nsnr, a.buf) end
+      if pair ~= nil then pair:draw(a.buf, nsnr) end
     end,
   })
 end
