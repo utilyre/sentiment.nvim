@@ -1,9 +1,14 @@
 ---@class sentiment.Pair
----@field public opening { [1]: number, [2]: number }
----@field public closing { [1]: number, [2]: number }
+---@field public opening position Opening character.
+---@field public closing position Closing character.
 local Pair = {}
 Pair.__index = Pair
 
+---Create a new instance of Pair.
+---
+---@param opening position
+---@param closing position
+---@return sentiment.Pair
 function Pair.new(opening, closing)
   local instance = setmetatable({}, Pair)
 
