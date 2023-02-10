@@ -1,3 +1,5 @@
+local Pair = require("sentiment.pair")
+
 local M = {}
 
 function M.setup()
@@ -5,7 +7,6 @@ function M.setup()
 
   local nsnr = vim.api.nvim_create_namespace("sentiment")
 
-  -- vim.api.nvim_buf_add_highlight(bufnr, ns, "MatchParen", 3, 1, -1)
   vim.api.nvim_create_autocmd({
     "CursorMoved",
     "CursorMovedI",
@@ -29,8 +30,8 @@ function M.setup()
       local line =
         vim.api.nvim_buf_get_lines(a.buf, cursor[1] - 1, cursor[1], true)[1]
 
-      local opening_position
-      local closing_position
+      ---@type sentiment.Pair
+      local pair
       for i = 1, #matchpairs do
         local opening = openings[i]
         local closing = closings[i]
@@ -38,36 +39,17 @@ function M.setup()
         local opening_start, opening_end = line:find(opening, 1, true)
         local closing_start, closing_end = line:find(closing, 1, true)
 
-        if opening_start ~= nil then
-          opening_position = { opening_start, opening_end }
+        if opening_start ~= nil and closing_start ~= nil then
+          pair = Pair.new(
+            { cursor[1] - 1, opening_end - 1 },
+            { cursor[1] - 1, closing_end - 1 }
+          )
+          break
         end
-        if closing_start ~= nil then
-          closing_position = { closing_start, closing_end }
-        end
-        if opening_start ~= nil or closing_start ~= nil then break end
       end
 
       vim.api.nvim_buf_clear_namespace(a.buf, nsnr, 0, -1)
-      if opening_position ~= nil then
-        vim.api.nvim_buf_add_highlight(
-          a.buf,
-          nsnr,
-          "MatchParen",
-          cursor[1] - 1,
-          opening_position[1] - 1,
-          opening_position[2]
-        )
-      end
-      if closing_position ~= nil then
-        vim.api.nvim_buf_add_highlight(
-          a.buf,
-          nsnr,
-          "MatchParen",
-          cursor[1] - 1,
-          closing_position[1] - 1,
-          closing_position[2]
-        )
-      end
+      if pair ~= nil then pair:draw(nsnr, a.buf) end
     end,
   })
 end
