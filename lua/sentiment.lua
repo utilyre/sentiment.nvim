@@ -7,10 +7,7 @@ function M.setup()
 
   local nsnr = vim.api.nvim_create_namespace("sentiment")
 
-  vim.api.nvim_create_autocmd({
-    "CursorMoved",
-    "CursorMovedI",
-  }, {
+  vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
     group = vim.api.nvim_create_augroup("sentiment", {}),
     callback = function(a)
       local matchpairs = vim.opt.matchpairs:get()
