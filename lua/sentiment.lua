@@ -1,3 +1,4 @@
+local utils = require("sentiment.utils")
 local Pair = require("sentiment.pair")
 
 local M = {}
@@ -24,31 +25,66 @@ function M.setup()
       local winnr = vim.api.nvim_get_current_win()
       local cursor = vim.api.nvim_win_get_cursor(winnr)
 
-      -- TODO: remaining_nests
+      local current_line =
+        vim.api.nvim_buf_get_lines(a.buf, cursor[1] - 1, cursor[1], false)[1]
 
-      local line =
-        vim.api.nvim_buf_get_lines(a.buf, cursor[1] - 1, cursor[1], true)[1]
+      local left_half, right_half = utils.split_at(current_line, cursor[2] + 1)
 
-      ---@type Pair
-      local pair
-      for i = 1, #matchpairs do
-        local left = lefts[i]
-        local right = rights[i]
+      -- BUG: highlighting breaks when cursor is ON a matchpair
+      local left_pos, right_pos
 
-        local left_start, left_end = line:find(left, 1, true)
-        local right_start, right_end = line:find(right, 1, true)
+      local remaining_nests = 0
+      for i = #left_half, 1, -1 do
+        local ch = left_half:sub(i, i)
 
-        if left_start ~= nil and right_start ~= nil then
-          pair = Pair.new(
-            { cursor[1] - 1, left_end - 1 },
-            { cursor[1] - 1, right_end - 1 }
-          )
+        if vim.tbl_contains(rights, ch) then
+          remaining_nests = remaining_nests + 1
+          goto continue
+        end
+
+        if vim.tbl_contains(lefts, ch) then
+          if remaining_nests > 0 then
+            remaining_nests = remaining_nests - 1
+            goto continue
+          end
+
+          left_pos = i
           break
         end
+
+        ::continue::
+      end
+      --[[ local ]] remaining_nests = 0
+      for i = 1, #right_half, 1 do
+        local ch = right_half:sub(i, i)
+
+        if vim.tbl_contains(lefts, ch) then
+          remaining_nests = remaining_nests + 1
+          goto continue
+        end
+
+        if vim.tbl_contains(rights, ch) then
+          if remaining_nests > 0 then
+            remaining_nests = remaining_nests - 1
+            goto continue
+          end
+
+          right_pos = (#left_half - 1) + i
+          break
+        end
+
+        ::continue::
       end
 
       vim.api.nvim_buf_clear_namespace(a.buf, nsnr, 0, -1)
-      if pair ~= nil then pair:draw(a.buf, nsnr) end
+      if left_pos ~= nil and right_pos ~= nil then
+        local pair = Pair.new(
+          { cursor[1] - 1, left_pos - 1 },
+          { cursor[1] - 1, right_pos - 1 }
+        )
+
+        if pair ~= nil then pair:draw(a.buf, nsnr) end
+      end
     end,
   })
 end
