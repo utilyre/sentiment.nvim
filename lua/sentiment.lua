@@ -14,12 +14,12 @@ function M.setup()
     group = vim.api.nvim_create_augroup("sentiment", {}),
     callback = function(a)
       local matchpairs = vim.opt.matchpairs:get()
-      local openings = {}
-      local closings = {}
+      local lefts = {}
+      local rights = {}
       for _, matchpair in ipairs(matchpairs) do
         local parts = vim.split(matchpair, ":", { plain = true })
-        table.insert(openings, parts[1])
-        table.insert(closings, parts[2])
+        table.insert(lefts, parts[1])
+        table.insert(rights, parts[2])
       end
 
       local winnr = vim.api.nvim_get_current_win()
@@ -33,16 +33,16 @@ function M.setup()
       ---@type sentiment.Pair
       local pair
       for i = 1, #matchpairs do
-        local opening = openings[i]
-        local closing = closings[i]
+        local left = lefts[i]
+        local right = rights[i]
 
-        local opening_start, opening_end = line:find(opening, 1, true)
-        local closing_start, closing_end = line:find(closing, 1, true)
+        local left_start, left_end = line:find(left, 1, true)
+        local right_start, right_end = line:find(right, 1, true)
 
-        if opening_start ~= nil and closing_start ~= nil then
+        if left_start ~= nil and right_start ~= nil then
           pair = Pair.new(
-            { cursor[1] - 1, opening_end - 1 },
-            { cursor[1] - 1, closing_end - 1 }
+            { cursor[1] - 1, left_end - 1 },
+            { cursor[1] - 1, right_end - 1 }
           )
           break
         end
