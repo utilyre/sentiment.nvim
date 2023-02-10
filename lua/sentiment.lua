@@ -29,7 +29,7 @@ function M.setup()
       local line =
         vim.api.nvim_buf_get_lines(a.buf, cursor[1] - 1, cursor[1], true)[1]
 
-      ---@type sentiment.Pair
+      ---@type Pair
       local pair
       for i = 1, #matchpairs do
         local left = lefts[i]
