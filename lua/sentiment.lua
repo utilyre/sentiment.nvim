@@ -31,7 +31,7 @@ function M.setup()
 
       local opening_position
       local closing_position
-      for i = 1, #openings do
+      for i = 1, #matchpairs do
         local opening = openings[i]
         local closing = closings[i]
 
