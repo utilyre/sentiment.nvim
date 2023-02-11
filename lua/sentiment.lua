@@ -29,8 +29,10 @@ function M.setup()
         vim.api.nvim_buf_get_lines(a.buf, cursor[1] - 1, cursor[1], false)[1]
 
       local left_half, right_half = utils.split_at(current_line, cursor[2] + 1)
+      -- TODO: fetch visible lines and lookup pairs in there
 
       -- BUG: highlighting breaks when cursor is ON a matchpair
+      -- Like () or ( { "Hi" }, "Hello" }
       local left_pos, right_pos
 
       local remaining_nests = 0
