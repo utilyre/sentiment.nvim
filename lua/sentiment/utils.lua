@@ -1,6 +1,6 @@
 local M = {}
 
----Escape Lua pattern
+---Escape Lua pattern.
 ---
 ---@param str string
 ---@return string
