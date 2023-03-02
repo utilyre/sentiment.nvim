@@ -19,12 +19,12 @@ end
 
 ---Highlight opening and closing characters.
 ---
----@param bufnr buffer
----@param nsnr namespace
-function Pair:draw(bufnr, nsnr)
+---@param buf buffer
+---@param ns namespace
+function Pair:draw(buf, ns)
   vim.api.nvim_buf_add_highlight(
-    bufnr,
-    nsnr,
+    buf,
+    ns,
     "MatchParen",
     self.left[1],
     self.left[2],
@@ -32,8 +32,8 @@ function Pair:draw(bufnr, nsnr)
   )
 
   vim.api.nvim_buf_add_highlight(
-    bufnr,
-    nsnr,
+    buf,
+    ns,
     "MatchParen",
     self.right[1],
     self.right[2],
