@@ -26,18 +26,18 @@ function Pair:draw(buf, ns)
     buf,
     ns,
     "MatchParen",
-    self.left[1],
-    self.left[2],
-    self.left[2] + 1
+    self.left[1] - 1,
+    self.left[2] - 1,
+    self.left[2]
   )
 
   vim.api.nvim_buf_add_highlight(
     buf,
     ns,
     "MatchParen",
-    self.right[1],
-    self.right[2],
-    self.right[2] + 1
+    self.right[1] - 1,
+    self.right[2] - 1,
+    self.right[2]
   )
 end
 
