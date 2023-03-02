@@ -2,7 +2,6 @@
 ---@field public left tuple<number, number> Left hand side opening character position in `(line, character)` format.
 ---@field public right tuple<number, number> Right hand side closing character position in `(line, character)` format.
 local Pair = {}
-Pair.__index = Pair
 
 ---Create a new instance of Pair.
 ---
@@ -10,7 +9,7 @@ Pair.__index = Pair
 ---@param right tuple<number, number> Right hand side closing character position in `(line, character)` format.
 ---@return Pair
 function Pair.new(left, right)
-  local instance = setmetatable({}, Pair)
+  local instance = setmetatable({}, { __index = Pair })
 
   instance.left = left
   instance.right = right
