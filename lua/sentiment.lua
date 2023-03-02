@@ -3,6 +3,27 @@ local Pair = require("sentiment.pair")
 
 local M = {}
 
+local function find_left(lefts, rights, top, bot, lines, row, col)
+  local start = col
+
+  local remaining = 0
+  for i = row, top, -1 do
+    local line = lines[i]
+    if i == row - 1 then start = #line end
+
+    for j = start, 1, -1 do
+      local char = line:sub(j, j)
+
+      if rights[char] then
+        remaining = remaining + 1
+      elseif lefts[char] then
+        if remaining == 0 then return { top + i - 1, j } end
+        remaining = remaining - 1
+      end
+    end
+  end
+end
+
 local function find_right(lefts, rights, top, bot, lines, row, col)
   local start = col
 
@@ -50,16 +71,14 @@ function M.setup()
       local row, col = unpack(vim.api.nvim_win_get_cursor(args.win))
       col = col + 1
 
-      local left = nil
-      -- ...
-      left = { 1, 1 }
-
+      -- FIXME: pair conflict when cursor is right on the pair
+      local left = find_left(lefts, rights, top, bot, lines, row, col)
       local right = find_right(lefts, rights, top, bot, lines, row, col)
 
       vim.api.nvim_buf_clear_namespace(args.buf, ns, 0, -1)
       if left == nil or right == nil then return end
 
-      local pair = Pair.new({ 1, 1 }, right)
+      local pair = Pair.new(left, right)
       pair:draw(args.buf, ns)
     end,
   })
