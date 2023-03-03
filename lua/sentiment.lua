@@ -1,4 +1,3 @@
-local utils = require("sentiment.utils")
 local Pair = require("sentiment.pair")
 
 local M = {}
