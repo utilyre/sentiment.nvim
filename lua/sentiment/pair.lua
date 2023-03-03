@@ -1,12 +1,12 @@
 ---@class Pair
----@field public left tuple<number, number> Left hand side opening character position in `(row, col)` format.
----@field public right tuple<number, number> Right hand side closing character position in `(row, col)` format.
+---@field public left tuple<integer, integer> Left hand side opening character position in `(row, col)` format.
+---@field public right tuple<integer, integer> Right hand side closing character position in `(row, col)` format.
 local Pair = {}
 
 ---Create a new instance of Pair.
 ---
----@param left tuple<number, number> Left hand side opening character position in `(row, col)` format.
----@param right tuple<number, number> Right hand side closing character position in `(row, col)` format.
+---@param left tuple<integer, integer> Left hand side opening character position in `(row, col)` format.
+---@param right tuple<integer, integer> Right hand side closing character position in `(row, col)` format.
 ---@return Pair
 function Pair.new(left, right)
   local instance = setmetatable({}, { __index = Pair })
