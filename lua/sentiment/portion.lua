@@ -13,18 +13,26 @@ local Portion = {}
 function Portion.new(win)
   local instance = setmetatable({}, { __index = Portion })
 
-  instance.win = win
+  if win == 0 then
+    instance.win = vim.api.nvim_get_current_win()
+  else
+    instance.win = win
+  end
+
   instance.buf = vim.api.nvim_win_get_buf(instance.win)
+
   instance.viewport = {
     vim.fn.line("w0", instance.win),
     vim.fn.line("w$", instance.win),
   }
+
   instance.lines = vim.api.nvim_buf_get_lines(
     instance.buf,
     instance.viewport[1] - 1,
     instance.viewport[2],
     true
   )
+
   instance.cursor = vim.api.nvim_win_get_cursor(instance.win)
   instance.cursor[2] = instance.cursor[2] + 1
 
