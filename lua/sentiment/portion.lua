@@ -1,11 +1,15 @@
 ---@class Portion
----@field private win window
----@field private buf buffer
----@field private viewport tuple<integer, integer>
----@field private lines string[]
----@field private cursor tuple<integer, integer>
+---@field private win window Window to take the visible portion of.
+---@field private buf buffer Inner buffer of `win`.
+---@field private viewport tuple<integer, integer> Visible viewport of `win`.
+---@field private lines string[] Lines inside `viewport`.
+---@field private cursor tuple<integer, integer> Cursor position of `win`.
 local Portion = {}
 
+---Create a new instance of Portion.
+---
+---@param win window Window to take the visible portion of.
+---@return Portion
 function Portion.new(win)
   local instance = setmetatable({}, { __index = Portion })
 
@@ -27,6 +31,17 @@ function Portion.new(win)
   return instance
 end
 
+---Iterate over all characters of the Portion, ignoring newline characters.
+---
+---```lua
+---local portion = Portion.new(--[[ ... ]])
+---for cursor, char in portion:iter(false) do
+---  -- ...
+---end
+---```
+---
+---@param reverse boolean Whether to iterate backwards.
+---@return fun(): tuple<integer, integer>, string
 function Portion:iter(reverse)
   local coefficient = reverse and -1 or 1
 
@@ -42,6 +57,7 @@ function Portion:iter(reverse)
         reverse and (cursor[1] < self.viewport[1])
         or (cursor[1] > self.viewport[2])
       then
+        ---@diagnostic disable-next-line: missing-return-value, return-type-mismatch
         return nil
       end
 
