@@ -27,22 +27,29 @@ function Portion.new(win)
   return instance
 end
 
-function Portion:iter()
+function Portion:iter(reverse)
+  local coefficient = reverse and -1 or 1
+
   local cursor = vim.deepcopy(self.cursor)
-  cursor[2] = cursor[2] - 1
+  cursor[2] = cursor[2] - coefficient
   if cursor[1] < self.viewport[1] or cursor[1] > self.viewport[2] then
     error("cursor out of bound", 2)
   end
 
   return function()
     local line = self.lines[cursor[1] - self.viewport[1] + 1]
-    cursor[2] = cursor[2] + 1
-    if cursor[2] > #line then
-      cursor[1] = cursor[1] + 1
-      if cursor[1] > self.viewport[2] then return nil end
+    cursor[2] = cursor[2] + coefficient
+    if reverse and (cursor[2] < 1) or (cursor[2] > #line) then
+      cursor[1] = cursor[1] + coefficient
+      if
+        reverse and (cursor[1] < self.viewport[1])
+        or (cursor[1] > self.viewport[2])
+      then
+        return nil
+      end
 
       line = self.lines[cursor[1] - self.viewport[1] + 1]
-      cursor[2] = 1
+      cursor[2] = reverse and #line or 1
     end
 
     return cursor, line:sub(cursor[2], cursor[2])
