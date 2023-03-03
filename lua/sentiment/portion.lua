@@ -39,10 +39,10 @@ function Portion:iter()
     cursor[2] = cursor[2] + 1
     if cursor[2] > #line then
       cursor[1] = cursor[1] + 1
-      cursor[2] = 1
-
       if cursor[1] > self.viewport[2] then return nil end
+
       line = self.lines[cursor[1] - self.viewport[1] + 1]
+      cursor[2] = 1
     end
 
     return cursor, line:sub(cursor[2], cursor[2])
