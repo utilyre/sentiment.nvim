@@ -32,9 +32,6 @@ function Portion:iter(reverse)
 
   local cursor = vim.deepcopy(self.cursor)
   cursor[2] = cursor[2] - coefficient
-  if cursor[1] < self.viewport[1] or cursor[1] > self.viewport[2] then
-    error("cursor out of bound", 2)
-  end
 
   return function()
     local line = self.lines[cursor[1] - self.viewport[1] + 1]
