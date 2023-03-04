@@ -20,4 +20,18 @@ function M.is_buffer_included(buf)
   return cfg.included_buftypes[buftype] and not cfg.excluded_filetypes[filetype]
 end
 
+---Check whether a character is a matchpair.
+---
+---@param char string Character to be checked.
+---@param direction "left"|"right" Direction of the matchpair.
+---@return integer|nil
+function M.is_matchpair(char, direction)
+  for i, matchpair in ipairs(cfg.matchpairs) do
+    if direction == "left" and matchpair[1] == char then return i end
+    if direction == "right" and matchpair[2] == char then return i end
+  end
+
+  return nil
+end
+
 return M
