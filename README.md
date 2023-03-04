@@ -1,3 +1,6 @@
+_**WIP**: This plugin is still work in progress and is a little bit
+performance intensive (don't worry it'll be fixed soon)_
+
 <div align="center">
 
 # sentiment.nvim
