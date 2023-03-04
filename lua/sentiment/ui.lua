@@ -1,6 +1,6 @@
 local config = require("sentiment.config")
-local Portion = require("sentiment.portion")
-local Pair = require("sentiment.pair")
+local Portion = require("sentiment.ui.Portion")
+local Pair = require("sentiment.ui.Pair")
 
 local NAMESPACE_PAIR = "sentiment.pair"
 
