@@ -1,9 +1,7 @@
 ---@class Portion
----@field private win window Window to take the visible portion of.
----@field private buf buffer Inner buffer of `win`.
----@field private viewport tuple<integer, integer> Visible viewport of `win`.
+---@field private viewport tuple<integer, integer> Visible viewport in (top, bottom) format.
 ---@field private lines string[] Lines inside `viewport`.
----@field private cursor tuple<integer, integer> Cursor position of `win`.
+---@field private cursor tuple<integer, integer> Cursor position in (row, col) format.
 local Portion = {}
 
 ---Create a new instance of Portion.
@@ -11,29 +9,22 @@ local Portion = {}
 ---@param win window Window to take the visible portion of.
 ---@return Portion
 function Portion.new(win)
+  win = win or vim.api.nvim_get_current_win()
+  local buf = vim.api.nvim_win_get_buf(win)
+
   local instance = setmetatable({}, { __index = Portion })
 
-  if win == 0 then
-    instance.win = vim.api.nvim_get_current_win()
-  else
-    instance.win = win
-  end
-
-  instance.buf = vim.api.nvim_win_get_buf(instance.win)
-
   instance.viewport = {
-    vim.fn.line("w0", instance.win),
-    vim.fn.line("w$", instance.win),
+    vim.fn.line("w0", win),
+    vim.fn.line("w$", win),
   }
-
   instance.lines = vim.api.nvim_buf_get_lines(
-    instance.buf,
+    buf,
     instance.viewport[1] - 1,
     instance.viewport[2],
     true
   )
-
-  instance.cursor = vim.api.nvim_win_get_cursor(instance.win)
+  instance.cursor = vim.api.nvim_win_get_cursor(win)
   instance.cursor[2] = instance.cursor[2] + 1
 
   return instance
