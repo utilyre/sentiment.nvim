@@ -36,14 +36,15 @@ end
 
 ---Check whether a character is a matchpair.
 ---
+---@param left boolean Whether it should be a left matchpair.
 ---@param char string Character to be checked.
----@param direction "left"|"right" Direction of the matchpair.
 ---@return boolean
-function M.is_matchpair(char, direction)
-  if direction == "left" then return left_matchpairs[char] end
-  if direction == "right" then return right_matchpairs[char] end
+function M.is_matchpair(left, char)
+  if left then
+    return left_matchpairs[char]
+  end
 
-  error(string.format("invalid direction: '%s'", direction), 2)
+  return right_matchpairs[char]
 end
 
 return M
