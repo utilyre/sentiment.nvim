@@ -6,7 +6,7 @@ local NAMESPACE_PAIR = "sentiment.pair"
 
 local M = {}
 
----Find the first occurrence of a matchpair.
+---Find the first occurrence of a pair.
 ---
 ---@param left boolean Whether to look for a left pair.
 ---@param portion Portion Portion to be searched.

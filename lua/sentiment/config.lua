@@ -27,24 +27,24 @@ function M.is_buffer_included(buf)
   return cfg.included_buftypes[buftype] and not cfg.excluded_filetypes[filetype]
 end
 
-local left_matchpairs = {}
-local right_matchpairs = {}
+local left_pairs = {}
+local right_pairs = {}
 for _, matchpair in ipairs(cfg.matchpairs) do
-  left_matchpairs[matchpair[1]] = true
-  right_matchpairs[matchpair[2]] = true
+  left_pairs[matchpair[1]] = true
+  right_pairs[matchpair[2]] = true
 end
 
----Check whether a character is a matchpair.
+---Check whether a character is a pair.
 ---
----@param left boolean Whether it should be a left matchpair.
+---@param left boolean Whether it should be a left pair.
 ---@param char string Character to be checked.
 ---@return boolean
 function M.is_matchpair(left, char)
   if left then
-    return left_matchpairs[char]
+    return left_pairs[char]
   end
 
-  return right_matchpairs[char]
+  return right_pairs[char]
 end
 
 return M
