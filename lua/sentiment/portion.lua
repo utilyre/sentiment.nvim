@@ -1,7 +1,7 @@
 ---@class Portion
 ---@field private viewport tuple<integer, integer> Visible viewport in (top, bottom) format.
 ---@field private lines string[] Lines inside `viewport`.
----@field private cursor tuple<integer, integer> Cursor position in (row, col) format.
+---@field public cursor tuple<integer, integer> Cursor position in (row, col) format.
 local Portion = {}
 
 ---Create a new instance of Portion.
