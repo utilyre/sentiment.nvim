@@ -30,6 +30,15 @@ function Portion.new(win)
   return instance
 end
 
+---Get the line under the cursor.
+---
+---@param cursor? tuple<integer, integer>
+---@return string
+function Portion:get_current_line(cursor)
+  cursor = cursor or self.cursor
+  return self.lines[cursor[1] - self.viewport[1] + 1]
+end
+
 ---Iterate over all characters of the Portion, ignoring newline characters.
 ---
 ---```lua
@@ -48,7 +57,7 @@ function Portion:iter(reversed)
   cursor[2] = cursor[2] - coefficient
 
   return function()
-    local line = self.lines[cursor[1] - self.viewport[1] + 1]
+    local line = self:get_current_line(cursor)
     cursor[2] = cursor[2] + coefficient
     if reversed and (cursor[2] < 1) or (cursor[2] > #line) then
       cursor[1] = cursor[1] + coefficient
@@ -60,7 +69,7 @@ function Portion:iter(reversed)
         return nil
       end
 
-      line = self.lines[cursor[1] - self.viewport[1] + 1]
+      line = self:get_current_line(cursor)
       cursor[2] = reversed and #line or 1
     end
 
