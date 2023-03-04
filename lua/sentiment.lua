@@ -1,4 +1,4 @@
-local config = require("sentiment.config")
+local manager = require("sentiment.config.manager")
 
 local M = {}
 
@@ -9,7 +9,7 @@ local M = {}
 ---@param cfg? Config User config to be applied.
 function M.setup(cfg)
   vim.g.loaded_matchparen = 1
-  config.apply(cfg or {})
+  manager.apply(cfg or {})
 end
 
 return M
