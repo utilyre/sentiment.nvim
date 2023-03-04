@@ -14,10 +14,12 @@ function M.setup(cfg)
   vim.g.loaded_matchparen = 1
   manager.apply(cfg or {})
 
-  autocmd.create_updater(
-    { "CursorMoved", "CursorMovedI" },
-    function(args) ui.update(args.buf) end
-  )
+  if config.can_create_updater() then
+    autocmd.create_updater(
+      { "CursorMoved", "CursorMovedI" },
+      function(args) ui.update(args.buf) end
+    )
+  end
 end
 
 return M

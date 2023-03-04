@@ -9,6 +9,13 @@ local cfg = default
 ---@param c Config
 function M.set(c) cfg = c end
 
+---Check whether to create an updater autocmd.
+---
+---@return boolean
+function M.can_create_updater()
+  return cfg.create_updater_autocmd
+end
+
 ---Check whether a buffer is included.
 ---
 ---@param buf buffer Buffer to be checked.
