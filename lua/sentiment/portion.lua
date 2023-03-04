@@ -39,6 +39,15 @@ function Portion:get_current_line(cursor)
   return self.lines[cursor[1] - self.viewport[1] + 1]
 end
 
+---Get the character under the cursor.
+---
+---@param cursor? tuple<integer, integer>
+---@return string
+function Portion:get_current_char(cursor)
+  cursor = cursor or self.cursor
+  return self:get_current_line(cursor):sub(cursor[2], cursor[2])
+end
+
 ---Iterate over all characters of the Portion, ignoring newline characters.
 ---
 ---```lua
