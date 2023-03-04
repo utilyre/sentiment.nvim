@@ -61,9 +61,7 @@ end
 ---@return fun(): tuple<integer, integer>, string
 function Portion:iter(reversed)
   local coefficient = reversed and -1 or 1
-
   local cursor = vim.deepcopy(self.cursor)
-  cursor[2] = cursor[2] - coefficient
 
   return function()
     local line = self:get_current_line(cursor)
