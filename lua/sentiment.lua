@@ -48,14 +48,12 @@ function M.setup(cfg)
       local portion = Portion.new(0)
       local under_cursor = portion:get_current_char()
 
-      local left = nil
-      local right = nil
+      local left = portion.cursor
+      local right = portion.cursor
 
       if config.is_matchpair(under_cursor, "left") then
-        left = portion.cursor
         right = find_right(portion)
       elseif config.is_matchpair(under_cursor, "right") then
-        right = portion.cursor
         left = find_left(portion)
       else
         left = find_left(portion)
