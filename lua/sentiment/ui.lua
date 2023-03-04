@@ -28,19 +28,23 @@ end
 
 ---Clear pair highlights.
 ---
----@param buf buffer
+---@param buf? buffer
 function M.clear(buf)
+  buf = buf or vim.api.nvim_get_current_buf()
+
   local ns = vim.api.nvim_create_namespace(NAMESPACE_PAIR)
   vim.api.nvim_buf_clear_namespace(buf, ns, 0, -1)
 end
 
 ---Calculate and update the highlighted pair.
 ---
----@param buf buffer
-function M.update(buf)
+---@param win? window
+function M.update(win)
+  win = win or vim.api.nvim_get_current_win()
+  local buf = vim.api.nvim_win_get_buf(win)
   if not config.is_buffer_included(buf) then return end
 
-  local portion = Portion.new(0)
+  local portion = Portion.new(win)
   local under_cursor = portion:get_current_char()
 
   local left = nil

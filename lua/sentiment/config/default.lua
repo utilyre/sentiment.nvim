@@ -7,7 +7,7 @@ local Config = {
   ---```lua
   ---vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
   ---  group = vim.api.nvim_create_augroup("sentiment.my_updater", {}),
-  ---  callback = function(args) require("sentiment.ui").update(args.buf) end,
+  ---  callback = function() require("sentiment.ui").update() end,
   ---})
   ---```
   ---
