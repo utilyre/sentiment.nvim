@@ -39,10 +39,10 @@ end
 ---end
 ---```
 ---
----@param reverse boolean Whether to iterate backwards.
+---@param reversed boolean Whether to iterate backwards.
 ---@return fun(): tuple<integer, integer>, string
-function Portion:iter(reverse)
-  local coefficient = reverse and -1 or 1
+function Portion:iter(reversed)
+  local coefficient = reversed and -1 or 1
 
   local cursor = vim.deepcopy(self.cursor)
   cursor[2] = cursor[2] - coefficient
@@ -50,10 +50,10 @@ function Portion:iter(reverse)
   return function()
     local line = self.lines[cursor[1] - self.viewport[1] + 1]
     cursor[2] = cursor[2] + coefficient
-    if reverse and (cursor[2] < 1) or (cursor[2] > #line) then
+    if reversed and (cursor[2] < 1) or (cursor[2] > #line) then
       cursor[1] = cursor[1] + coefficient
       if
-        reverse and (cursor[1] < self.viewport[1])
+        reversed and (cursor[1] < self.viewport[1])
         or (cursor[1] > self.viewport[2])
       then
         ---@diagnostic disable-next-line: missing-return-value, return-type-mismatch
@@ -61,7 +61,7 @@ function Portion:iter(reverse)
       end
 
       line = self.lines[cursor[1] - self.viewport[1] + 1]
-      cursor[2] = reverse and #line or 1
+      cursor[2] = reversed and #line or 1
     end
 
     return cursor, line:sub(cursor[2], cursor[2])
