@@ -36,10 +36,10 @@ function M.clear(buf)
   vim.api.nvim_buf_clear_namespace(buf, ns, 0, -1)
 end
 
----Calculate and update the highlighted pair.
+---Calculate and render the highlighted pair.
 ---
 ---@param win? window
-function M.update(win)
+function M.render(win)
   win = win or vim.api.nvim_get_current_win()
   local buf = vim.api.nvim_win_get_buf(win)
   if not config.is_buffer_included(buf) then return end

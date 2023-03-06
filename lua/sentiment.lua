@@ -12,7 +12,7 @@ function M.setup(cfg)
   vim.g.loaded_matchparen = 1
   manager.apply(cfg or {})
 
-  autocmd.create_updater()
+  autocmd.create_renderer()
 end
 
 return M
