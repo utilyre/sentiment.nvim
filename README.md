@@ -14,6 +14,9 @@ Enhanced matchparen plugin for Neovim to highlight the outer pair.
 
 ## 📦 Installation
 
+**NOTE**: Keep in mind that calling `setup` disables the built-in
+[matchparen.vim][matchparen.vim] plugin.
+
 -   [lazy.nvim][lazy.nvim]
 
     ```lua
@@ -41,6 +44,7 @@ Enhanced matchparen plugin for Neovim to highlight the outer pair.
     }
     ```
 
+[matchparen.vim]: https://github.com/neovim/neovim/blob/master/runtime/plugin/matchparen.vim
 [lazy.nvim]: https://github.com/folke/lazy.nvim
 [packer.nvim]: https://github.com/wbthomason/packer.nvim
 
