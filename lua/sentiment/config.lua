@@ -34,24 +34,17 @@ function M.get_limit()
   return cfg.limit
 end
 
-local left_pairs = {}
-local right_pairs = {}
-for _, matchpair in ipairs(cfg.matchpairs) do
-  left_pairs[matchpair[1]] = true
-  right_pairs[matchpair[2]] = true
-end
-
 ---Check whether a character is a pair.
 ---
 ---@param left boolean Whether it should be a left pair.
 ---@param char string Character to be checked.
 ---@return boolean
-function M.is_matchpair(left, char)
+function M.is_pair(left, char)
   if left then
-    return left_pairs[char]
+    return cfg.lefts[char]
   end
 
-  return right_pairs[char]
+  return cfg.rights[char]
 end
 
 return M

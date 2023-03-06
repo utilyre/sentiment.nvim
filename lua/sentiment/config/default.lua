@@ -31,13 +31,23 @@ local Config = {
   ---@type integer
   limit = 100,
 
-  ---List of `(left, right)` match pair tuples.
+  ---List of left side pairs.
   ---
-  ---@type tuple<string, string>[]
-  matchpairs = vim.tbl_map(
-    function(matchpair) return vim.split(matchpair, ":", { plain = true }) end,
-    vim.opt.matchpairs:get()
-  ),
+  ---@type table<string, boolean>
+  lefts = {
+    ["("] = true,
+    ["{"] = true,
+    ["["] = true,
+  },
+
+  ---List of right side pairs.
+  ---
+  ---@type table<string, boolean>
+  rights = {
+    [")"] = true,
+    ["}"] = true,
+    ["]"] = true,
+  },
 }
 
 return Config

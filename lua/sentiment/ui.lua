@@ -15,9 +15,9 @@ local function find_pair(left, portion)
   local remaining = 0
 
   for cursor, char in portion:iter(left) do
-    if config.is_matchpair(not left, char) then
+    if config.is_pair(not left, char) then
       remaining = remaining + 1
-    elseif config.is_matchpair(left, char) then
+    elseif config.is_pair(left, char) then
       if remaining == 0 then return cursor end
       remaining = remaining - 1
     end
@@ -49,10 +49,10 @@ function M.update(win)
 
   local left = nil
   local right = nil
-  if config.is_matchpair(true, under_cursor) then
+  if config.is_pair(true, under_cursor) then
     left = portion.cursor
     right = find_pair(false, portion)
-  elseif config.is_matchpair(false, under_cursor) then
+  elseif config.is_pair(false, under_cursor) then
     left = find_pair(true, portion)
     right = portion.cursor
   else
