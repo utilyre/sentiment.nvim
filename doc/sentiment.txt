@@ -16,7 +16,7 @@ Enhanced matchparen plugin for Neovim to highlight the outer pair.
 FEATURES                                                  *sentiment-features*
 
 
-- 🚀 Performant (**Blazingly Fast!!!**).
+- 🚀 Performance (**Blazingly Fast!!!**).
 - 👍 Ease of use.
 
 
