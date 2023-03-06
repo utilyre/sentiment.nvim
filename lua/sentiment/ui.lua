@@ -44,7 +44,7 @@ function M.update(win)
   local buf = vim.api.nvim_win_get_buf(win)
   if not config.is_buffer_included(buf) then return end
 
-  local portion = Portion.new(win)
+  local portion = Portion.new(win, config.get_limit())
   local under_cursor = portion:get_current_char()
 
   local left = nil

@@ -26,6 +26,11 @@ local Config = {
   ---@type table<string, boolean>
   excluded_filetypes = {},
 
+  ---How many lines to look backwards/forwards to find a pair.
+  ---
+  ---@type integer
+  limit = 100,
+
   ---List of `(left, right)` match pair tuples.
   ---
   ---@type tuple<string, string>[]

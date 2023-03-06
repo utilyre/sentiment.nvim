@@ -7,8 +7,9 @@ local Portion = {}
 ---Create a new instance of Portion.
 ---
 ---@param win window Window to take the visible portion of.
+---@param limit integer Maximum amount of lines around the cursor to be processed.
 ---@return Portion
-function Portion.new(win)
+function Portion.new(win, limit)
   local instance = setmetatable({}, { __index = Portion })
 
   instance.cursor = vim.api.nvim_win_get_cursor(win)
@@ -18,6 +19,12 @@ function Portion.new(win)
     vim.fn.line("w0", win),
     vim.fn.line("w$", win),
   }
+  if instance.cursor[1] - instance.viewport[1] > limit then
+    instance.viewport[1] = instance.cursor[1] - limit
+  end
+  if instance.viewport[2] - instance.cursor[1] > limit then
+    instance.viewport[2] = instance.cursor[1] + limit
+  end
 
   instance.lines = vim.api.nvim_buf_get_lines(
     vim.api.nvim_win_get_buf(win),

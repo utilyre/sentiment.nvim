@@ -27,6 +27,13 @@ function M.is_buffer_included(buf)
   return cfg.included_buftypes[buftype] and not cfg.excluded_filetypes[filetype]
 end
 
+---Get how many lines to look backwards/forwards to find a pair.
+---
+---@return integer
+function M.get_limit()
+  return cfg.limit
+end
+
 local left_pairs = {}
 local right_pairs = {}
 for _, matchpair in ipairs(cfg.matchpairs) do
