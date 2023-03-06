@@ -6,6 +6,14 @@ Enhanced matchparen plugin for Neovim to highlight the outer pair.
 
 </div>
 
+## 📹 Demo
+
+**DISCLAIMER**: The autopair functionality is comming from [nvim-autopairs][nvim-autopairs].
+
+[demo.webm](https://user-images.githubusercontent.com/91974155/223225880-2b22dcda-3d38-4a9f-82d5-0e76c0c789e7.webm)
+
+[nvim-autopairs]: https://github.com/windwp/nvim-autopairs
+
 ## ✨ Features
 
 -   🚀 Performance (**Blazingly Fast!!!**).
