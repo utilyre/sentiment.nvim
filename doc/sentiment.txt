@@ -22,6 +22,11 @@ FEATURES                                                  *sentiment-features*
 
 INSTALLATION                                          *sentiment-installation*
 
+**NOTE**: Keep in mind that calling `setup` disables the built-in
+matchparen.vim
+<https://github.com/neovim/neovim/blob/master/runtime/plugin/matchparen.vim>
+plugin.
+
 
 - lazy.nvim <https://github.com/folke/lazy.nvim>
     >
