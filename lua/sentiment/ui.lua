@@ -61,10 +61,8 @@ function M.update(win)
   end
 
   M.clear(buf)
-  if left ~= nil and right ~= nil then
-    local pair = Pair.new(left, right)
-    pair:draw(buf, vim.api.nvim_create_namespace(NAMESPACE_PAIR))
-  end
+  local pair = Pair.new(left, right)
+  pair:draw(buf, vim.api.nvim_create_namespace(NAMESPACE_PAIR))
 end
 
 return M
