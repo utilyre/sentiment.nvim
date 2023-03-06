@@ -1,0 +1,44 @@
+name: Automatic Generation
+
+on:
+  push:
+    paths:
+      - README.md
+
+jobs:
+  vimdoc:
+    name: Vimdoc
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout the latest commit
+        uses: actions/checkout@v3
+
+      - name: Ensure `doc` directory exists
+        run: mkdir -p doc
+
+      - name: Remove emojis from headings
+        run: sed -i "s/^## ./##/" README.md
+
+      - name: Generate vimdoc
+        uses: kdheepak/panvimdoc@v2.7.1
+        with:
+          vimdoc: sentiment
+          description: Enhanced matchparen plugin for Neovim
+          version: NVIM v0.8+
+          pandoc: README.md
+          demojify: true
+          treesitter: true
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          branch: ${{ github.head_ref }}
+          file_pattern: doc/sentiment.txt
+          commit_message: |
+            chore(docs): generate vimdoc
+
+            Convert `README.md` at project root to vimdoc located at
+            `doc/sentiment.txt`.

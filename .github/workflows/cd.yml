@@ -1,0 +1,33 @@
+name: Continuous Deployment
+
+on:
+  push:
+    tags:
+      - v*.*.*
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout the latest commit
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Generate changelog
+        id: changelog
+        uses: orhun/git-cliff-action@v2
+        with:
+          args: -vl
+
+      - name: Create new release
+        uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          name: Release ${{ github.ref_name }}
+          body_path: ${{ steps.changelog.outputs.changelog }}
