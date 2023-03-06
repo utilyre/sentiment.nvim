@@ -1,7 +1,7 @@
 ---@class Portion
+---@field public cursor tuple<integer, integer> Cursor position in (row, col) format.
 ---@field private viewport tuple<integer, integer> Visible viewport in (top, bottom) format.
 ---@field private lines string[] Lines inside `viewport`.
----@field public cursor tuple<integer, integer> Cursor position in (row, col) format.
 local Portion = {}
 
 ---Create a new instance of Portion.
@@ -14,18 +14,20 @@ function Portion.new(win)
 
   local instance = setmetatable({}, { __index = Portion })
 
+  instance.cursor = vim.api.nvim_win_get_cursor(win)
+  instance.cursor[2] = instance.cursor[2] + 1
+
   instance.viewport = {
     vim.fn.line("w0", win),
     vim.fn.line("w$", win),
   }
+
   instance.lines = vim.api.nvim_buf_get_lines(
     buf,
     instance.viewport[1] - 1,
     instance.viewport[2],
     true
   )
-  instance.cursor = vim.api.nvim_win_get_cursor(win)
-  instance.cursor[2] = instance.cursor[2] + 1
 
   return instance
 end
