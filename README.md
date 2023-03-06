@@ -8,7 +8,7 @@ Enhanced matchparen plugin for Neovim to highlight the outer pair.
 
 ## ✨ Features
 
--   🚀 Performant (**Blazingly Fast!!!**).
+-   🚀 Performance (**Blazingly Fast!!!**).
 
 -   👍 Ease of use.
 
