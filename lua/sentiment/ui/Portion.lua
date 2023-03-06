@@ -9,9 +9,6 @@ local Portion = {}
 ---@param win window Window to take the visible portion of.
 ---@return Portion
 function Portion.new(win)
-  win = win == 0 and vim.api.nvim_get_current_win() or win
-  local buf = vim.api.nvim_win_get_buf(win)
-
   local instance = setmetatable({}, { __index = Portion })
 
   instance.cursor = vim.api.nvim_win_get_cursor(win)
@@ -23,7 +20,7 @@ function Portion.new(win)
   }
 
   instance.lines = vim.api.nvim_buf_get_lines(
-    buf,
+    vim.api.nvim_win_get_buf(win),
     instance.viewport[1] - 1,
     instance.viewport[2],
     true
