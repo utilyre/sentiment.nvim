@@ -21,7 +21,7 @@ jobs:
         run: mkdir -p doc
 
       - name: Generate vimdoc
-        uses: kdheepak/panvimdoc@3.0.5
+        uses: kdheepak/panvimdoc@main
         with:
           vimdoc: sentiment
           description: Enhanced matchparen plugin for Neovim
