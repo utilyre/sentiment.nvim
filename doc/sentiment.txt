@@ -67,9 +67,9 @@ plugin.
 USAGE                                                        *sentiment-usage*
 
 
-- `:DoMatchParen`
-    Disable the plugin.
 - `:NoMatchParen`
+    Disable the plugin.
+- `:DoMatchParen`
     Re-enable the plugin.
 
 
