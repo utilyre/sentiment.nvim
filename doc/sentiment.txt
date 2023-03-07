@@ -3,58 +3,53 @@
 ==============================================================================
 Table of Contents                                *sentiment-table-of-contents*
 
-1. sentiment.nvim                                   |sentiment-sentiment.nvim|
   - Demo                                                      |sentiment-demo|
   - Features                                              |sentiment-features|
   - Installation                                      |sentiment-installation|
   - Usage                                                    |sentiment-usage|
   - Configuration                                    |sentiment-configuration|
 
-==============================================================================
-1. sentiment.nvim                                   *sentiment-sentiment.nvim*
-
-Enhanced matchparen plugin for Neovim to highlight the outer pair.
 
 DEMO                                                          *sentiment-demo*
 
-**DISCLAIMER**: The autopair functionality is comming from nvim-autopairs
+**DISCLAIMER**The autopair functionality is comming from nvim-autopairs
 <https://github.com/windwp/nvim-autopairs>.
 
 demo.webm
 <https://user-images.githubusercontent.com/91974155/223225880-2b22dcda-3d38-4a9f-82d5-0e76c0c789e7.webm>
 
+
 FEATURES                                                  *sentiment-features*
 
 
-- 🚀 Performance (**Blazingly Fast!!!**).
-- 🪁 Fully compatible with anything that expects `matchparen.vim` to be there.
-- 👍 Ease of use.
+- Performance (**Blazingly Fast!!!**).
+- Fully compatible with anything that expects `matchparen.vim` to be there.
+- Ease of use.
 
 
 INSTALLATION                                          *sentiment-installation*
 
-**NOTE**: Keep in mind that calling `setup` disables the built-in
-matchparen.vim
+**NOTE**Keep in mind that calling `setup` disables the built-in matchparen.vim
 <https://github.com/neovim/neovim/blob/master/runtime/plugin/matchparen.vim>
 plugin.
 
 
 - lazy.nvim <https://github.com/folke/lazy.nvim>
-    >
+    >lua
         {
           "utilyre/sentiment.nvim",
           name = "sentiment",
-          version = "*",
+          version = "",
           opts = {
             -- config
           },
         }
     <
 - packer.nvim <https://github.com/wbthomason/packer.nvim>
-    >
+    >lua
         {
           "utilyre/sentiment.nvim",
-          tag = "*",
+          tag = "",
           config = function()
             require("sentiment").setup({
               -- config
