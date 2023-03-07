@@ -9,10 +9,10 @@
 
 ---@class Autocmd
 ---@field private id integer|nil Autocmd ID.
----@field public name string Name used for creating its augroup.
----@field public desc string Documentation for troubleshooting.
----@field public events string[] Events that will trigger the handler.
----@field public callback fun(args: AutocmdArgs): boolean|nil Called when any of the events are triggered.
+---@field private name string Name used for creating its augroup.
+---@field private desc string Documentation for troubleshooting.
+---@field private events string[] Events that will trigger the handler.
+---@field private callback fun(args: AutocmdArgs): boolean|nil Called when any of the events are triggered.
 local Autocmd = {}
 
 ---Create a new instance of Autocmd.
