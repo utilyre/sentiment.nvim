@@ -50,7 +50,9 @@ end
 ---NOTE: Will throw an error if this instance hasn't been created yet.
 function Autocmd:remove()
   if self.id == nil then error("autocmd hasn't been created yet", 2) end
+
   vim.api.nvim_del_autocmd(self.id)
+  self.id = nil
 end
 
 return Autocmd
