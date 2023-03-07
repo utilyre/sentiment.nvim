@@ -26,7 +26,7 @@ local function find_pair(left, portion)
   return nil
 end
 
----Calculate and render the highlighted pair.
+---Calculate and highlight the found pair.
 ---
 ---@param win? window
 function M.render(win)
