@@ -60,11 +60,11 @@ Enhanced matchparen plugin for Neovim to highlight the outer pair.
 
 ## 🎮 Usage
 
--   `:DoMatchParen`
+-   `:NoMatchParen`
 
     Disable the plugin.
 
--   `:NoMatchParen`
+-   `:DoMatchParen`
 
     Re-enable the plugin.
 
