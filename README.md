@@ -18,6 +18,8 @@ Enhanced matchparen plugin for Neovim to highlight the outer pair.
 
 -   🚀 Performance (**Blazingly Fast!!!**).
 
+-   🪁 Fully compatible with anything that expects `matchparen.vim` to be there.
+
 -   👍 Ease of use.
 
 ## 📦 Installation
@@ -55,6 +57,16 @@ Enhanced matchparen plugin for Neovim to highlight the outer pair.
 [matchparen.vim]: https://github.com/neovim/neovim/blob/master/runtime/plugin/matchparen.vim
 [lazy.nvim]: https://github.com/folke/lazy.nvim
 [packer.nvim]: https://github.com/wbthomason/packer.nvim
+
+## 🎮 Usage
+
+-   `:DoMatchParen`
+
+    Disable the plugin.
+
+-   `:NoMatchParen`
+
+    Re-enable the plugin.
 
 ## 🚠 Configuration
 
