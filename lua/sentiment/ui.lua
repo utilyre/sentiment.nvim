@@ -26,16 +26,6 @@ local function find_pair(left, portion)
   return nil
 end
 
----Clear pair highlights.
----
----@param buf? buffer
-function M.clear(buf)
-  buf = buf or vim.api.nvim_get_current_buf()
-
-  local ns = vim.api.nvim_create_namespace(NAMESPACE_PAIR)
-  vim.api.nvim_buf_clear_namespace(buf, ns, 0, -1)
-end
-
 ---Calculate and render the highlighted pair.
 ---
 ---@param win? window
@@ -60,9 +50,11 @@ function M.render(win)
     right = find_pair(false, portion)
   end
 
-  M.clear(buf)
+  local ns = vim.api.nvim_create_namespace(NAMESPACE_PAIR)
   local pair = Pair.new(left, right)
-  pair:draw(buf, vim.api.nvim_create_namespace(NAMESPACE_PAIR))
+
+  vim.api.nvim_buf_clear_namespace(buf, ns, 0, -1)
+  pair:draw(buf, ns)
 end
 
 return M
