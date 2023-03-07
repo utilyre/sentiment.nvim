@@ -3,6 +3,7 @@ name: Automatic Generation
 on:
   push:
     paths:
+      - .github/workflows/augen.yml
       - README.md
 
 jobs:
