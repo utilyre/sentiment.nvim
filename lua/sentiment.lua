@@ -1,5 +1,6 @@
+local Autocmd = require("sentiment.Autocmd")
 local manager = require("sentiment.config.manager")
-local autocmd = require("sentiment.autocmd")
+local ui = require("sentiment.ui")
 
 local M = {}
 
@@ -12,7 +13,14 @@ function M.setup(cfg)
   vim.g.loaded_matchparen = 1
   manager.apply(cfg or {})
 
-  autocmd.create_renderer()
+  local renderer = Autocmd.new(
+    "renderer",
+    "Render pairs",
+    { "WinScrolled", "CursorMoved", "CursorMovedI" },
+    function() ui.render() end
+  )
+
+  renderer:create()
 end
 
 return M
