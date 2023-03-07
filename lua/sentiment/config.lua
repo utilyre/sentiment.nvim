@@ -32,7 +32,6 @@ function M.get_limit() return cfg.limit end
 ---@return boolean
 function M.is_pair(left, char)
   if left then return cfg.lefts[char] end
-
   return cfg.rights[char]
 end
 
