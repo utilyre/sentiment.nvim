@@ -20,17 +20,13 @@ jobs:
       - name: Ensure `doc` directory exists
         run: mkdir -p doc
 
-      - name: Remove emojis from headings
-        run: sed -i "s/^## ./##/" README.md
-
       - name: Generate vimdoc
-        uses: kdheepak/panvimdoc@v2.7.1
+        uses: kdheepak/panvimdoc@3.0.5
         with:
           vimdoc: sentiment
           description: Enhanced matchparen plugin for Neovim
           pandoc: README.md
           demojify: true
-          treesitter: true
 
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v4
