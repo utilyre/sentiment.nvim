@@ -36,9 +36,7 @@ end
 ---Check whether the autocmd exists.
 ---
 ---@return boolean
-function Autocmd:exists()
-  return self.id ~= nil
-end
+function Autocmd:exists() return self.id ~= nil end
 
 ---Create the autocmd.
 function Autocmd:create()
