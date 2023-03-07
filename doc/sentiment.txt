@@ -7,6 +7,7 @@ Table of Contents                                *sentiment-table-of-contents*
   - Demo                                                      |sentiment-demo|
   - Features                                              |sentiment-features|
   - Installation                                      |sentiment-installation|
+  - Usage                                                    |sentiment-usage|
   - Configuration                                    |sentiment-configuration|
 
 ==============================================================================
@@ -26,6 +27,7 @@ FEATURES                                                  *sentiment-features*
 
 
 - 🚀 Performance (**Blazingly Fast!!!**).
+- 🪁 Fully compatible with anything that expects `matchparen.vim` to be there.
 - 👍 Ease of use.
 
 
@@ -60,6 +62,15 @@ plugin.
           end,
         }
     <
+
+
+USAGE                                                        *sentiment-usage*
+
+
+- `:DoMatchParen`
+    Disable the plugin.
+- `:NoMatchParen`
+    Re-enable the plugin.
 
 
 CONFIGURATION                                        *sentiment-configuration*
