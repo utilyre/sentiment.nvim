@@ -27,7 +27,6 @@ jobs:
         with:
           vimdoc: sentiment
           description: Enhanced matchparen plugin for Neovim
-          version: NVIM v0.8+
           pandoc: README.md
           demojify: true
           treesitter: true
