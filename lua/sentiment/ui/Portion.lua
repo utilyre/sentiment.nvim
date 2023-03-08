@@ -36,6 +36,16 @@ function Portion.new(win, limit)
   return instance
 end
 
+---Get the top position.
+---
+---@return integer
+function Portion:get_top() return self.viewport[1] end
+
+---Get the bottom position.
+---
+---@return integer
+function Portion:get_bottom() return self.viewport[2] end
+
 ---Get the line under the cursor.
 ---
 ---@param cursor? tuple<integer, integer>
