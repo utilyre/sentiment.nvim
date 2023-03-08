@@ -2,6 +2,7 @@ local config = require("sentiment.config")
 local Portion = require("sentiment.ui.Portion")
 local Pair = require("sentiment.ui.Pair")
 
+local VARIABLE_VIEWPORT = "sentiment.viewport"
 local NAMESPACE_PAIR = "sentiment.pair"
 
 local M = {}
@@ -33,7 +34,10 @@ function M.clear(buf)
   buf = buf or vim.api.nvim_get_current_buf()
 
   local ns = vim.api.nvim_create_namespace(NAMESPACE_PAIR)
-  vim.api.nvim_buf_clear_namespace(buf, ns, 0, -1)
+  local ok, viewport = pcall(vim.api.nvim_buf_get_var, buf, VARIABLE_VIEWPORT)
+  if not ok then return end
+
+  vim.api.nvim_buf_clear_namespace(buf, ns, viewport[1], viewport[2])
 end
 
 ---Calculate and highlight the found pair.
@@ -61,6 +65,12 @@ function M.render(win)
   end
 
   M.clear(buf)
+  vim.api.nvim_buf_set_var(
+    buf,
+    VARIABLE_VIEWPORT,
+    { portion:get_top(), portion:get_bottom() }
+  )
+
   Pair.new(left, right):draw(buf, vim.api.nvim_create_namespace(NAMESPACE_PAIR))
 end
 
