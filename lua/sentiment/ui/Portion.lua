@@ -1,6 +1,6 @@
 ---@class Portion
----@field private cursor tuple<integer, integer> Cursor position in (row, col) format.
----@field private viewport tuple<integer, integer> Visible viewport in (top, bottom) format.
+---@field private cursor tuple<integer, integer> Cursor position in `(row, col)` format.
+---@field private viewport tuple<integer, integer> Visible viewport in `(top, bottom)` format.
 ---@field private lines string[] Lines inside `viewport`.
 local Portion = {}
 
