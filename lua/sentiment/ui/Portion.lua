@@ -1,5 +1,5 @@
 ---@class Portion
----@field public cursor tuple<integer, integer> Cursor position in (row, col) format.
+---@field private cursor tuple<integer, integer> Cursor position in (row, col) format.
 ---@field private viewport tuple<integer, integer> Visible viewport in (top, bottom) format.
 ---@field private lines string[] Lines inside `viewport`.
 local Portion = {}
@@ -35,6 +35,11 @@ function Portion.new(win, limit)
 
   return instance
 end
+
+---Get cursor position in `(row, col)` format.
+---
+---@return tuple<integer, integer>
+function Portion:get_cursor() return vim.deepcopy(self.cursor) end
 
 ---Get the top position.
 ---

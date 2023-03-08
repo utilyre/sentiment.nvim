@@ -54,11 +54,11 @@ function M.render(win)
   local left = nil
   local right = nil
   if config.is_pair(true, under_cursor) then
-    left = portion.cursor
+    left = portion:get_cursor()
     right = find_pair(false, portion)
   elseif config.is_pair(false, under_cursor) then
     left = find_pair(true, portion)
-    right = portion.cursor
+    right = portion:get_cursor()
   else
     left = find_pair(true, portion)
     right = find_pair(false, portion)
