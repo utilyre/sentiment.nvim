@@ -6,19 +6,13 @@ local M = {}
 
 ---Create matchparen.vim style user commands.
 local function create_user_commands()
-  vim.api.nvim_create_user_command("NoMatchParen", function()
-    if not autocmds.renderer:exists() then return end
+  vim.api.nvim_create_user_command("NoMatchParen", function() M.disable() end, {
+    desc = "Disable the plugin",
+  })
 
-    autocmds.renderer:remove()
-    ui.clear()
-  end, {})
-
-  vim.api.nvim_create_user_command("DoMatchParen", function()
-    if autocmds.renderer:exists() then return end
-
-    ui.render()
-    autocmds.renderer:create()
-  end, {})
+  vim.api.nvim_create_user_command("DoMatchParen", function() M.enable() end, {
+    desc = "Re-enable the plugin",
+  })
 end
 
 ---Load and setup the plugin with an optional config table.
@@ -32,6 +26,26 @@ function M.setup(cfg)
 
   autocmds.renderer:create()
   create_user_commands()
+end
+
+---Disable the plugin.
+function M.disable()
+  if not autocmds.renderer:exists() then return end
+
+  autocmds.renderer:remove()
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    ui.clear(buf)
+  end
+end
+
+---Re-enable the plugin.
+function M.enable()
+  if autocmds.renderer:exists() then return end
+
+  autocmds.renderer:create()
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    ui.render(win)
+  end
 end
 
 return M
