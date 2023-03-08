@@ -37,7 +37,7 @@ function M.clear(buf)
   local ok, viewport = pcall(vim.api.nvim_buf_get_var, buf, VARIABLE_VIEWPORT)
   if not ok then return end
 
-  vim.api.nvim_buf_clear_namespace(buf, ns, viewport[1], viewport[2])
+  vim.api.nvim_buf_clear_namespace(buf, ns, viewport[1] - 1, viewport[2])
 end
 
 ---Calculate and highlight the found pair.
