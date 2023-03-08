@@ -62,9 +62,9 @@ plugin.
 USAGE                                                        *sentiment-usage*
 
 
-- `:NoMatchParen`
+- `require("sentiment").disable()`, `:NoMatchParen`
     Disable the plugin.
-- `:DoMatchParen`
+- `require("sentiment").enable()`, `:DoMatchParen`
     Re-enable the plugin.
 
 
