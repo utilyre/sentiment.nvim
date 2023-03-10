@@ -2,7 +2,10 @@
 
 # sentiment.nvim
 
-Enhanced matchparen plugin for Neovim to highlight the outer pair.
+Enhanced [matchparen.vim][matchparen.vim] plugin for Neovim to highlight the
+outer pair.
+
+[matchparen.vim]: https://github.com/neovim/neovim/blob/master/runtime/plugin/matchparen.vim
 
 </div>
 
@@ -18,9 +21,12 @@ Enhanced matchparen plugin for Neovim to highlight the outer pair.
 
 -   🚀 Performance (**Blazingly Fast!!!**).
 
--   🪁 Fully compatible with anything that expects `matchparen.vim` to be there.
+-   🪁 Fully compatible with anything that expects
+    [matchparen.vim][matchparen.vim] to be there.
 
 -   👍 Ease of use.
+
+[matchparen.vim]: https://github.com/neovim/neovim/blob/master/runtime/plugin/matchparen.vim
 
 ## 📦 Installation
 
