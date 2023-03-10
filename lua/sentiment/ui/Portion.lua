@@ -51,20 +51,20 @@ function Portion:get_top() return self.viewport[1] end
 ---@return integer
 function Portion:get_bottom() return self.viewport[2] end
 
----Get the line under the cursor.
+---Get the nth line.
 ---
 ---@private
----@param cursor tuple<integer, integer>
+---@param row integer Line number to get.
 ---@return string
-function Portion:get_line(cursor)
-  return self.lines[cursor[1] - self.viewport[1] + 1]
+function Portion:get_line(row)
+  return self.lines[row - self.viewport[1] + 1]
 end
 
 ---Get the character under the cursor.
 ---
 ---@return string
 function Portion:get_current_char()
-  return self:get_line(self.cursor):sub(self.cursor[2], self.cursor[2])
+  return self:get_line(self.cursor[1]):sub(self.cursor[2], self.cursor[2])
 end
 
 ---Iterate over all characters of the Portion, ignoring newline characters.
@@ -83,7 +83,7 @@ function Portion:iter(reversed)
   local cursor = vim.deepcopy(self.cursor)
 
   return function()
-    local line = self:get_line(cursor)
+    local line = self:get_line(cursor[1])
     cursor[2] = cursor[2] + coefficient
     if reversed and (cursor[2] < 1) or (cursor[2] > #line) then
       cursor[1] = cursor[1] + coefficient
@@ -95,7 +95,7 @@ function Portion:iter(reversed)
         return nil
       end
 
-      line = self:get_line(cursor)
+      line = self:get_line(cursor[1])
       cursor[2] = reversed and #line or 1
     end
 
