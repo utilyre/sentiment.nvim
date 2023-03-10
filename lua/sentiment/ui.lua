@@ -7,26 +7,6 @@ local NAMESPACE_PAIR = "sentiment.pair"
 
 local M = {}
 
----Find the first occurrence of a pair.
----
----@param left boolean Whether to look for a left pair.
----@param portion Portion Portion to be searched.
----@return tuple<integer, integer>|nil
-local function find_pair(left, portion)
-  local remaining = 0
-
-  for cursor, char in portion:iter(left) do
-    if config.is_pair(not left, char) then
-      remaining = remaining + 1
-    elseif config.is_pair(left, char) then
-      if remaining == 0 then return cursor end
-      remaining = remaining - 1
-    end
-  end
-
-  return nil
-end
-
 ---Clear pair highlights.
 ---
 ---@param buf? buffer
@@ -50,18 +30,90 @@ function M.render(win)
 
   local portion = Portion.new(win, config.get_limit())
   local under_cursor = portion:get_current_char()
+  local pair = Pair.new()
 
-  local left = nil
-  local right = nil
-  if config.is_pair(true, under_cursor) then
-    left = portion:get_cursor()
-    right = find_pair(false, portion)
-  elseif config.is_pair(false, under_cursor) then
-    left = find_pair(true, portion)
-    right = portion:get_cursor()
+  local right = config.get_right_by_left(under_cursor)
+  local left = config.get_left_by_right(under_cursor)
+  if right ~= nil then
+    pair.left = portion:get_cursor()
+
+    local remainings = 0
+    for cursor, char in portion:iter(false) do
+      if char == under_cursor then
+        remainings = remainings + 1
+      elseif char == right then
+        if remainings == 0 then
+          pair.right = cursor
+          break
+        end
+
+        remainings = remainings - 1
+      end
+    end
+  elseif left ~= nil then
+    pair.right = portion:get_cursor()
+
+    local remaining = 0
+    for cursor, char in portion:iter(true) do
+      if char == under_cursor then
+        remaining = remaining + 1
+      elseif char == left then
+        if remaining == 0 then
+          pair.left = cursor
+          break
+        end
+
+        remaining = remaining - 1
+      end
+    end
   else
-    left = find_pair(true, portion)
-    right = find_pair(false, portion)
+    local found_left = nil
+    local found_right = nil
+
+    local remaining = 0
+    for cursor, char in portion:iter(false) do
+      if config.get_right_by_left(char) ~= nil then
+        remaining = remaining + 1
+      elseif config.get_left_by_right(char) ~= nil then
+        if remaining == 0 then
+          found_left = config.get_left_by_right(char)
+          found_right = char
+          pair.right = cursor
+          break
+        end
+
+        remaining = remaining - 1
+      end
+    end
+
+    remaining = 0
+    if found_left == nil then
+      for cursor, char in portion:iter(true) do
+        if config.get_left_by_right(char) then
+          remaining = remaining + 1
+        elseif config.get_right_by_left(char) then
+          if remaining == 0 then
+            pair.left = cursor
+            break
+          end
+
+          remaining = remaining - 1
+        end
+      end
+    else
+      for cursor, char in portion:iter(true) do
+        if char == found_right then
+          remaining = remaining + 1
+        elseif char == found_left then
+          if remaining == 0 then
+            pair.left = cursor
+            break
+          end
+
+          remaining = remaining - 1
+        end
+      end
+    end
   end
 
   M.clear(buf)
@@ -71,7 +123,7 @@ function M.render(win)
     { portion:get_top(), portion:get_bottom() }
   )
 
-  Pair.new(left, right):draw(buf, vim.api.nvim_create_namespace(NAMESPACE_PAIR))
+  pair:draw(buf, vim.api.nvim_create_namespace(NAMESPACE_PAIR))
 end
 
 return M
