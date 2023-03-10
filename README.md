@@ -99,22 +99,13 @@ outer pair.
   ---@type integer
   limit = 100,
 
-  ---List of left side pairs.
+  ---List of `(left, right)` pairs.
   ---
-  ---@type table<string, boolean>
-  lefts = {
-    ["("] = true,
-    ["{"] = true,
-    ["["] = true,
-  },
-
-  ---List of right side pairs.
-  ---
-  ---@type table<string, boolean>
-  rights = {
-    [")"] = true,
-    ["}"] = true,
-    ["]"] = true,
+  ---@type tuple<string, string>[]
+  pairs = {
+    { "(", ")" },
+    { "{", "}" },
+    { "[", "]" },
   },
 }
 ```
