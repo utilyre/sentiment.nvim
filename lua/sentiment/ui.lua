@@ -7,7 +7,7 @@ local NAMESPACE_PAIR = "sentiment.pair"
 
 local M = {}
 
----Clear pair highlights.
+---Clear `Pair` highlights.
 ---
 ---@param buf? buffer Buffer to be cleared.
 function M.clear(buf)
@@ -20,7 +20,7 @@ function M.clear(buf)
   vim.api.nvim_buf_clear_namespace(buf, ns, viewport[1] - 1, viewport[2])
 end
 
----Calculate and highlight the found pair.
+---Calculate and draw the found `Pair`.
 ---
 ---@param win? window Window to be rendered inside.
 function M.render(win)

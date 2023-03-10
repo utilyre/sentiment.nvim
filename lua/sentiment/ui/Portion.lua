@@ -4,7 +4,7 @@
 ---@field private lines string[] Lines inside `viewport`.
 local Portion = {}
 
----Create a new instance of Portion.
+---Create a new instance of `Portion`.
 ---
 ---@param win window Window to take the visible portion of.
 ---@param limit integer Maximum amount of lines around the cursor to be processed.
@@ -67,7 +67,7 @@ function Portion:get_current_char()
   return self:get_line(self.cursor[1]):sub(self.cursor[2], self.cursor[2])
 end
 
----Iterate over all characters of the Portion, ignoring newline characters.
+---Iterate over all characters of the `Portion`, ignoring newline characters.
 ---
 ---```lua
 ---local portion = Portion.new(--[[ ... ]])

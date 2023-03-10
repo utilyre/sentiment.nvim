@@ -3,7 +3,7 @@ local ui = require("sentiment.ui")
 
 local M = {}
 
----Pair renderer.
+---`Pair` renderer.
 M.renderer = Autocmd.new(
   "renderer",
   "Render pairs",
