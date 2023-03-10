@@ -9,7 +9,7 @@ local M = {}
 
 ---Clear pair highlights.
 ---
----@param buf? buffer
+---@param buf? buffer Buffer to be cleared.
 function M.clear(buf)
   buf = buf or vim.api.nvim_get_current_buf()
 
@@ -22,7 +22,7 @@ end
 
 ---Calculate and highlight the found pair.
 ---
----@param win? window
+---@param win? window Window to be rendered inside.
 function M.render(win)
   win = win or vim.api.nvim_get_current_win()
   local buf = vim.api.nvim_win_get_buf(win)

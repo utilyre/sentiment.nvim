@@ -6,7 +6,7 @@ local cfg = default
 
 ---Set config to a new value.
 ---
----@param c Config
+---@param c Config New config value.
 function M.set(c) cfg = c end
 
 ---Check whether a buffer is included.
@@ -32,16 +32,16 @@ for _, pair in ipairs(cfg.pairs) do
   right_to_left[pair[2]] = pair[1]
 end
 
----Get the corresponding right pair of a left pair
+---Get the corresponding right pair of a left pair.
 ---
----@param left string
----@return string
+---@param left string Left side of pair.
+---@return string|nil
 function M.get_right_by_left(left) return left_to_right[left] end
 
----Get the corresponding left pair of a right pair
+---Get the corresponding left pair of a right pair.
 ---
----@param right string
----@return string
+---@param right string Right side of pair.
+---@return string|nil
 function M.get_left_by_right(right) return right_to_left[right] end
 
 return M

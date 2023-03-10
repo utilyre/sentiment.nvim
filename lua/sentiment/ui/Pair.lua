@@ -19,8 +19,8 @@ end
 
 ---Highlight opening and closing characters.
 ---
----@param buf buffer
----@param ns namespace
+---@param buf buffer Buffer to be drawn in.
+---@param ns namespace Namespace to be drawn in.
 function Pair:draw(buf, ns)
   if self.left ~= nil then
     vim.api.nvim_buf_add_highlight(
