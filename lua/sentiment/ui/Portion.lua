@@ -56,9 +56,7 @@ function Portion:get_bottom() return self.viewport[2] end
 ---@private
 ---@param row integer Line number to get.
 ---@return string
-function Portion:get_line(row)
-  return self.lines[row - self.viewport[1] + 1]
-end
+function Portion:get_line(row) return self.lines[row - self.viewport[1] + 1] end
 
 ---Get the character under the cursor.
 ---
