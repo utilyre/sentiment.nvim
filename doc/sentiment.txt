@@ -23,7 +23,9 @@ FEATURES                                                  *sentiment-features*
 
 
 - Performance (**Blazingly Fast!!!**).
-- Fully compatible with anything that expects `matchparen.vim` to be there.
+- Fully compatible with anything that expects matchparen.vim
+    <https://github.com/neovim/neovim/blob/master/runtime/plugin/matchparen.vim> to
+    be there.
 - Ease of use.
 
 
@@ -91,22 +93,13 @@ Click to see the default config ~
       ---@type integer
       limit = 100,
     
-      ---List of left side pairs.
+      ---List of `(left, right)` pairs.
       ---
-      ---@type table<string, boolean>
-      lefts = {
-        ["("] = true,
-        ["{"] = true,
-        ["["] = true,
-      },
-    
-      ---List of right side pairs.
-      ---
-      ---@type table<string, boolean>
-      rights = {
-        [")"] = true,
-        ["}"] = true,
-        ["]"] = true,
+      ---@type tuple<string, string>[]
+      pairs = {
+        { "(", ")" },
+        { "{", "}" },
+        { "[", "]" },
       },
     }
 <
