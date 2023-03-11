@@ -20,6 +20,11 @@ function M.is_buffer_included(buf)
   return cfg.included_buftypes[buftype] and not cfg.excluded_filetypes[filetype]
 end
 
+---Get how much to wait before calculating the location of pairs.
+---
+---@return integer
+function M.get_delay() return cfg.delay end
+
 ---Get how many lines to look backwards/forwards to find a pair.
 ---
 ---@return integer

@@ -12,6 +12,11 @@ local Config = {
   ---@type table<string, boolean>
   excluded_filetypes = {},
 
+  ---How much to wait before calculating the location of pairs.
+  ---
+  ---@type integer
+  delay = 50,
+
   ---How many lines to look backwards/forwards to find a pair.
   ---
   ---@type integer

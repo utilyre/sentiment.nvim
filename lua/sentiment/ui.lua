@@ -77,54 +77,64 @@ function M.render(win)
   local buf = vim.api.nvim_win_get_buf(win)
   if not config.is_buffer_included(buf) then return end
 
-  local portion = Portion.new(win, config.get_limit())
-  local under_cursor = portion:get_current_char()
-  local pair = Pair.new()
+  local prev_cursor = vim.api.nvim_win_get_cursor(win)
+  vim.defer_fn(function()
+    local portion = Portion.new(win, config.get_limit())
+    if
+      portion:get_cursor()[1] ~= prev_cursor[1]
+      or portion:get_cursor()[2] ~= prev_cursor[2] + 1
+    then
+      return
+    end
 
-  local right = config.get_right_by_left(under_cursor)
-  local left = config.get_left_by_right(under_cursor)
-  if right ~= nil then
-    pair.left = portion:get_cursor()
-    pair.right = find_other_pair(portion, under_cursor, right, false)
-  elseif left ~= nil then
-    pair.left = find_other_pair(portion, left, under_cursor, true)
-    pair.right = portion:get_cursor()
-  else
-    if portion:is_upper() then
-      local found_left = nil
-      pair.left, found_left = find_pair(portion, true)
+    local under_cursor = portion:get_current_char()
+    local pair = Pair.new()
 
-      if found_left == nil then
-        pair.right = find_pair(portion, false)
-      else
-        local found_right = config.get_right_by_left(found_left)
-        ---@cast found_right -nil
-
-        pair.right = find_other_pair(portion, found_left, found_right, false)
-      end
+    local right = config.get_right_by_left(under_cursor)
+    local left = config.get_left_by_right(under_cursor)
+    if right ~= nil then
+      pair.left = portion:get_cursor()
+      pair.right = find_other_pair(portion, under_cursor, right, false)
+    elseif left ~= nil then
+      pair.left = find_other_pair(portion, left, under_cursor, true)
+      pair.right = portion:get_cursor()
     else
-      local found_right = nil
-      pair.right, found_right = find_pair(portion, false)
+      if portion:is_upper() then
+        local found_left = nil
+        pair.left, found_left = find_pair(portion, true)
 
-      if found_right == nil then
-        pair.left = find_pair(portion, true)
+        if found_left == nil then
+          pair.right = find_pair(portion, false)
+        else
+          local found_right = config.get_right_by_left(found_left)
+          ---@cast found_right -nil
+
+          pair.right = find_other_pair(portion, found_left, found_right, false)
+        end
       else
-        local found_left = config.get_left_by_right(found_right)
-        ---@cast found_left -nil
+        local found_right = nil
+        pair.right, found_right = find_pair(portion, false)
 
-        pair.left = find_other_pair(portion, found_left, found_right, true)
+        if found_right == nil then
+          pair.left = find_pair(portion, true)
+        else
+          local found_left = config.get_left_by_right(found_right)
+          ---@cast found_left -nil
+
+          pair.left = find_other_pair(portion, found_left, found_right, true)
+        end
       end
     end
-  end
 
-  M.clear(buf)
-  vim.api.nvim_buf_set_var(
-    buf,
-    VARIABLE_VIEWPORT,
-    { portion:get_top(), portion:get_bottom() }
-  )
+    M.clear(buf)
+    vim.api.nvim_buf_set_var(
+      buf,
+      VARIABLE_VIEWPORT,
+      { portion:get_top(), portion:get_bottom() }
+    )
 
-  pair:draw(buf, vim.api.nvim_create_namespace(NAMESPACE_PAIR))
+    pair:draw(buf, vim.api.nvim_create_namespace(NAMESPACE_PAIR))
+  end, config.get_delay())
 end
 
 return M
