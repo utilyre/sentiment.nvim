@@ -6,7 +6,40 @@ on:
       - v*.*.*
 
 jobs:
+  vimdoc:
+    name: Vimdoc
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout the latest commit
+        uses: actions/checkout@v3
+
+      - name: Ensure `doc` directory exists
+        run: mkdir -p doc
+
+      - name: Generate vimdoc
+        uses: kdheepak/panvimdoc@main
+        with:
+          vimdoc: sentiment
+          description: Enhanced matchparen.vim plugin for Neovim
+          pandoc: README.md
+          demojify: true
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          branch: ${{ github.head_ref }}
+          file_pattern: doc/sentiment.txt
+          commit_message: |
+            chore(docs): generate vimdoc
+
+            Convert `README.md` at project root to vimdoc located at
+            `doc/sentiment.txt`.
+
   release:
+    needs: vimdoc
     name: Release
     runs-on: ubuntu-22.04
     permissions:
