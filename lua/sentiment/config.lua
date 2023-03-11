@@ -4,10 +4,20 @@ local M = {}
 
 local cfg = default
 
+local left_to_right = {}
+local right_to_left = {}
+
 ---Set config to a new value.
 ---
 ---@param c Config New config value.
-function M.set(c) cfg = c end
+function M.set(c)
+  cfg = c
+
+  for _, pair in ipairs(cfg.pairs) do
+    left_to_right[pair[1]] = pair[2]
+    right_to_left[pair[2]] = pair[1]
+  end
+end
 
 ---Check whether a buffer is included.
 ---
@@ -29,13 +39,6 @@ function M.get_delay() return cfg.delay end
 ---
 ---@return integer
 function M.get_limit() return cfg.limit end
-
-local left_to_right = {}
-local right_to_left = {}
-for _, pair in ipairs(cfg.pairs) do
-  left_to_right[pair[1]] = pair[2]
-  right_to_left[pair[2]] = pair[1]
-end
 
 ---Get the corresponding right pair of a left pair.
 ---
