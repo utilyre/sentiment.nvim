@@ -2,13 +2,10 @@
 header = ""
 body = """
 All changes of this release are documented here.
-
-**NOTE**: Police revolving light emoji (🚨) indicates that breaking changes have
-happened on the commit.
 {% for group, commits in commits | group_by(attribute="group") %}
   ## {{ group }}
   {% for commit in commits %}
-    - **{{ commit.scope | default(value="NONE") }}**: {% if commit.breaking %}🚨 {% endif %}{{ commit.message | upper_first }}. ([`{{ commit.id | truncate(length=7, end="") }}`](https://github.com/utilyre/sentiment.nvim/commit/{{ commit.id }}))
+    - **{{ commit.scope | default(value="NONE") }}{% if commit.breaking %}!{% endif %}**: {{ commit.message | upper_first }}. ([`{{ commit.id | truncate(length=7, end="") }}`](https://github.com/utilyre/sentiment.nvim/commit/{{ commit.id }}))
   {% endfor %}
 {% endfor %}
 """
