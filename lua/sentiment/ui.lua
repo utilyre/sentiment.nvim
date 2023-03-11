@@ -80,10 +80,8 @@ function M.render(win)
   local prev_cursor = vim.api.nvim_win_get_cursor(win)
   vim.defer_fn(function()
     local portion = Portion.new(win, config.get_limit())
-    if
-      portion:get_cursor()[1] ~= prev_cursor[1]
-      or portion:get_cursor()[2] ~= prev_cursor[2] + 1
-    then
+    local cursor = portion:get_cursor()
+    if cursor[1] ~= prev_cursor[1] or cursor[2] ~= prev_cursor[2] + 1 then
       return
     end
 
@@ -93,11 +91,11 @@ function M.render(win)
     local right = config.get_right_by_left(under_cursor)
     local left = config.get_left_by_right(under_cursor)
     if right ~= nil then
-      pair.left = portion:get_cursor()
+      pair.left = cursor
       pair.right = find_other_pair(portion, under_cursor, right, false)
     elseif left ~= nil then
       pair.left = find_other_pair(portion, left, under_cursor, true)
-      pair.right = portion:get_cursor()
+      pair.right = cursor
     else
       if portion:is_upper() then
         local found_left = nil
