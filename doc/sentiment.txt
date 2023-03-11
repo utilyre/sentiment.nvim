@@ -1,4 +1,4 @@
-*sentiment.txt*                          Enhanced matchparen plugin for Neovim
+*sentiment.txt*                      Enhanced matchparen.vim plugin for Neovim
 
 ==============================================================================
 Table of Contents                                *sentiment-table-of-contents*
