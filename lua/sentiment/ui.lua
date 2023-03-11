@@ -7,6 +7,55 @@ local NAMESPACE_PAIR = "sentiment.pair"
 
 local M = {}
 
+---Find a side of a pair.
+---
+---@param portion Portion `Portion` to look inside of.
+---@param reversed boolean Whether to look backwards.
+---@return tuple<integer, integer>|nil
+---@return string|nil
+local function find_pair(portion, reversed)
+  local remaining = 0
+
+  for cursor, char in portion:iter(reversed) do
+    if
+      (reversed and config.get_left_by_right or config.get_right_by_left)(char)
+      ~= nil
+    then
+      remaining = remaining + 1
+    elseif
+      (reversed and config.get_right_by_left or config.get_left_by_right)(char)
+      ~= nil
+    then
+      if remaining == 0 then return cursor, char end
+      remaining = remaining - 1
+    end
+  end
+
+  return nil, nil
+end
+
+---Find the other side of a pair.
+---
+---@param portion Portion `Portion` to look inside of.
+---@param left string Left side of the desired pair.
+---@param right string Right side of the desired pair.
+---@param reversed boolean Whether to look backwards.
+---@return tuple<integer, integer>|nil
+local function find_other_pair(portion, left, right, reversed)
+  local remaining = 0
+
+  for cursor, char in portion:iter(reversed) do
+    if char == (reversed and right or left) then
+      remaining = remaining + 1
+    elseif char == (reversed and left or right) then
+      if remaining == 0 then return cursor end
+      remaining = remaining - 1
+    end
+  end
+
+  return nil
+end
+
 ---Clear `Pair` highlights.
 ---
 ---@param buf? buffer Buffer to be cleared.
@@ -36,83 +85,21 @@ function M.render(win)
   local left = config.get_left_by_right(under_cursor)
   if right ~= nil then
     pair.left = portion:get_cursor()
-
-    local remainings = 0
-    for cursor, char in portion:iter(false) do
-      if char == under_cursor then
-        remainings = remainings + 1
-      elseif char == right then
-        if remainings == 0 then
-          pair.right = cursor
-          break
-        end
-
-        remainings = remainings - 1
-      end
-    end
+    pair.right = find_other_pair(portion, under_cursor, right, false)
   elseif left ~= nil then
+    pair.left = find_other_pair(portion, left, under_cursor, true)
     pair.right = portion:get_cursor()
-
-    local remaining = 0
-    for cursor, char in portion:iter(true) do
-      if char == under_cursor then
-        remaining = remaining + 1
-      elseif char == left then
-        if remaining == 0 then
-          pair.left = cursor
-          break
-        end
-
-        remaining = remaining - 1
-      end
-    end
   else
     local found_left = nil
-    local found_right = nil
+    pair.left, found_left = find_pair(portion, true)
 
-    local remaining = 0
-    for cursor, char in portion:iter(false) do
-      if config.get_right_by_left(char) ~= nil then
-        remaining = remaining + 1
-      elseif config.get_left_by_right(char) ~= nil then
-        if remaining == 0 then
-          found_left = config.get_left_by_right(char)
-          found_right = char
-          pair.right = cursor
-          break
-        end
-
-        remaining = remaining - 1
-      end
-    end
-
-    remaining = 0
     if found_left == nil then
-      for cursor, char in portion:iter(true) do
-        if config.get_left_by_right(char) then
-          remaining = remaining + 1
-        elseif config.get_right_by_left(char) then
-          if remaining == 0 then
-            pair.left = cursor
-            break
-          end
-
-          remaining = remaining - 1
-        end
-      end
+      pair.right = find_pair(portion, false)
     else
-      for cursor, char in portion:iter(true) do
-        if char == found_right then
-          remaining = remaining + 1
-        elseif char == found_left then
-          if remaining == 0 then
-            pair.left = cursor
-            break
-          end
+      local found_right = config.get_right_by_left(found_left)
+      ---@cast found_right -nil
 
-          remaining = remaining - 1
-        end
-      end
+      pair.right = find_other_pair(portion, found_left, found_right, false)
     end
   end
 
