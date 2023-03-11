@@ -90,16 +90,30 @@ function M.render(win)
     pair.left = find_other_pair(portion, left, under_cursor, true)
     pair.right = portion:get_cursor()
   else
-    local found_left = nil
-    pair.left, found_left = find_pair(portion, true)
+    if portion:is_upper() then
+      local found_left = nil
+      pair.left, found_left = find_pair(portion, true)
 
-    if found_left == nil then
-      pair.right = find_pair(portion, false)
+      if found_left == nil then
+        pair.right = find_pair(portion, false)
+      else
+        local found_right = config.get_right_by_left(found_left)
+        ---@cast found_right -nil
+
+        pair.right = find_other_pair(portion, found_left, found_right, false)
+      end
     else
-      local found_right = config.get_right_by_left(found_left)
-      ---@cast found_right -nil
+      local found_right = nil
+      pair.right, found_right = find_pair(portion, false)
 
-      pair.right = find_other_pair(portion, found_left, found_right, false)
+      if found_right == nil then
+        pair.left = find_pair(portion, true)
+      else
+        local found_left = config.get_left_by_right(found_right)
+        ---@cast found_left -nil
+
+        pair.left = find_other_pair(portion, found_left, found_right, true)
+      end
     end
   end
 
