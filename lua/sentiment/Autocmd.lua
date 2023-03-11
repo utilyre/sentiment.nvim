@@ -40,6 +40,8 @@ function Autocmd:exists() return self.id ~= nil end
 
 ---Create the autocmd.
 function Autocmd:create()
+  if self.id ~= nil then error("autocmd has already been created", 2) end
+
   local group =
     vim.api.nvim_create_augroup(string.format("sentiment.%s", self.name), {})
 
