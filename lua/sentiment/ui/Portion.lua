@@ -19,17 +19,17 @@ function Portion.new(win, limit)
     vim.fn.line("w0", win),
     vim.fn.line("w$", win),
   }
-  if instance.cursor[1] - instance.viewport[1] > limit then
+  if instance.cursor[1] - instance:get_top() > limit then
     instance.viewport[1] = instance.cursor[1] - limit
   end
-  if instance.viewport[2] - instance.cursor[1] > limit then
+  if instance:get_bottom() - instance.cursor[1] > limit then
     instance.viewport[2] = instance.cursor[1] + limit
   end
 
   instance.lines = vim.api.nvim_buf_get_lines(
     vim.api.nvim_win_get_buf(win),
-    instance.viewport[1] - 1,
-    instance.viewport[2],
+    instance:get_top() - 1,
+    instance:get_bottom(),
     true
   )
 
@@ -55,8 +55,8 @@ function Portion:get_bottom() return self.viewport[2] end
 ---
 ---@return boolean
 function Portion:is_upper()
-  local half = (self.viewport[2] - self.viewport[1]) / 2
-  return (self.cursor[1] - self.viewport[1]) < half
+  local half = (self:get_bottom() - self:get_top()) / 2
+  return (self.cursor[1] - self:get_top()) < half
 end
 
 ---Get the nth line.
@@ -64,7 +64,7 @@ end
 ---@private
 ---@param row integer Line number to get.
 ---@return string
-function Portion:get_line(row) return self.lines[row - self.viewport[1] + 1] end
+function Portion:get_line(row) return self.lines[row - self:get_top() + 1] end
 
 ---Get the character under the cursor.
 ---
@@ -86,7 +86,7 @@ end
 ---@return fun(): tuple<integer, integer>, string
 function Portion:iter(reversed)
   local coefficient = reversed and -1 or 1
-  local cursor = vim.deepcopy(self.cursor)
+  local cursor = self:get_cursor()
 
   return function()
     local line = self:get_line(cursor[1])
@@ -94,8 +94,8 @@ function Portion:iter(reversed)
     if reversed and (cursor[2] < 1) or (cursor[2] > #line) then
       cursor[1] = cursor[1] + coefficient
       if
-        reversed and (cursor[1] < self.viewport[1])
-        or (cursor[1] > self.viewport[2])
+        reversed and (cursor[1] < self:get_top())
+        or (cursor[1] > self:get_bottom())
       then
         ---@diagnostic disable-next-line: missing-return-value, return-type-mismatch
         return nil
