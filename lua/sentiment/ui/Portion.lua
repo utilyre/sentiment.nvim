@@ -1,3 +1,5 @@
+local utils = require("sentiment.utils")
+
 ---@class Portion
 ---@field private cursor tuple<integer, integer> Cursor position in `(row, col)` format.
 ---@field private viewport tuple<integer, integer> Visible viewport in `(top, bottom)` format.
@@ -91,11 +93,14 @@ function Portion:iter(reversed)
   return function()
     local line = self:get_line(cursor[1])
     cursor[2] = cursor[2] + coefficient
-    if reversed and (cursor[2] < 1) or (cursor[2] > #line) then
+    if utils.ternary(reversed, cursor[2] < 1, cursor[2] > #line) then
       cursor[1] = cursor[1] + coefficient
       if
-        reversed and (cursor[1] < self:get_top())
-        or (cursor[1] > self:get_bottom())
+        utils.ternary(
+          reversed,
+          cursor[1] < self:get_top(),
+          cursor[1] > self:get_bottom()
+        )
       then
         ---@diagnostic disable-next-line: missing-return-value, return-type-mismatch
         return nil
