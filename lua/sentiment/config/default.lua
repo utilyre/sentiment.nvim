@@ -12,7 +12,11 @@ local Config = {
   ---@type table<string, boolean>
   excluded_filetypes = {},
 
-  ---How much to wait before calculating the location of pairs.
+  ---How much should the cursor stay still (in milliseconds) to calculate and
+  ---render the pairs.
+  ---
+  ---NOTE: It's recommended to set this somewhere above and close to your key
+  ---repeat speed in order to keep the calculations at minimum.
   ---
   ---@type integer
   delay = 50,
