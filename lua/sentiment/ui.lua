@@ -139,8 +139,6 @@ function M.render(win)
       return
     end
 
-    local pair = find_pair(portion)
-
     M.clear(buf)
     vim.api.nvim_buf_set_var(
       buf,
@@ -148,7 +146,7 @@ function M.render(win)
       { portion:get_top(), portion:get_bottom() }
     )
 
-    pair:draw(buf, vim.api.nvim_create_namespace(NAMESPACE_PAIR))
+    find_pair(portion):draw(buf, vim.api.nvim_create_namespace(NAMESPACE_PAIR))
   end, config.get_delay())
 end
 
