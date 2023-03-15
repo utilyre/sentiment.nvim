@@ -56,8 +56,13 @@ local function find_other_side(portion, left, right, reversed)
   return nil
 end
 
-local function find_pair(portion, cursor)
+---Find both sides of a pair.
+---
+---@param portion Portion `Portion` to look inside of.
+---@return Pair
+local function find_pair(portion)
   local under_cursor = portion:get_current_char()
+  local cursor = portion:get_cursor()
   local pair = Pair.new()
 
   local right = config.get_right_by_left(under_cursor)
@@ -128,7 +133,7 @@ function M.render(win)
       return
     end
 
-    local pair = find_pair(portion, cursor)
+    local pair = find_pair(portion)
 
     M.clear(buf)
     vim.api.nvim_buf_set_var(
