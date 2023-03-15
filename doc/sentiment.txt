@@ -12,7 +12,7 @@ Table of Contents                                *sentiment-table-of-contents*
 
 DEMO                                                          *sentiment-demo*
 
-**DISCLAIMER**The autopair functionality is comming from nvim-autopairs
+**DISCLAIMER**The autopair functionality is coming from nvim-autopairs
 <https://github.com/windwp/nvim-autopairs>.
 
 demo.webm
@@ -88,7 +88,11 @@ Click to see the default config ~
       ---@type table<string, boolean>
       excluded_filetypes = {},
     
-      ---How much to wait before calculating the location of pairs.
+      ---How much (in milliseconds) should the cursor stay still to calculate and
+      ---render a pair.
+      ---
+      ---NOTE: It's recommended to set this somewhere above and close to your key
+      ---repeat speed in order to keep the calculations at minimum.
       ---
       ---@type integer
       delay = 50,
