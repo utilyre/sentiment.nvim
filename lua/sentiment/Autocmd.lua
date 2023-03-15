@@ -39,6 +39,8 @@ end
 function Autocmd:exists() return self.id ~= nil end
 
 ---Create the autocmd.
+---
+---NOTE: Will throw an error if this instance has already been created.
 function Autocmd:create()
   if self.id ~= nil then error("autocmd has already been created", 2) end
 
