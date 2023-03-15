@@ -12,7 +12,7 @@ local Config = {
   ---@type table<string, boolean>
   excluded_filetypes = {},
 
-  ---How much should the cursor stay still (in milliseconds) to calculate and
+  ---How much (in milliseconds) should the cursor stay still to calculate and
   ---render a pair.
   ---
   ---NOTE: It's recommended to set this somewhere above and close to your key
