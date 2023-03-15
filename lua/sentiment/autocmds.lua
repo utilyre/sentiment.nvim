@@ -7,7 +7,7 @@ local M = {}
 M.renderer = Autocmd.new(
   "renderer",
   "Render pair",
-  { "BufWinEnter", "WinScrolled", "CursorMoved", "CursorMovedI" },
+  { "BufWinEnter", "WinScrolled", "ModeChanged", "CursorMoved", "CursorMovedI" },
   function() ui.render() end
 )
 

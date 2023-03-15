@@ -123,7 +123,13 @@ end
 function M.render(win)
   win = win or vim.api.nvim_get_current_win()
   local buf = vim.api.nvim_win_get_buf(win)
-  if not config.is_buffer_included(buf) then return end
+  if
+    not config.is_buffer_included(buf)
+    or not config.is_mode_included(vim.fn.mode())
+  then
+    M.clear(buf)
+    return
+  end
 
   local prev_cursor = vim.api.nvim_win_get_cursor(win)
   vim.defer_fn(function()
