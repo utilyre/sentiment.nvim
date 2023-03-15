@@ -6,7 +6,7 @@ local M = {}
 ---`Pair` renderer.
 M.renderer = Autocmd.new(
   "renderer",
-  "Render pairs",
+  "Render pair",
   { "BufWinEnter", "WinScrolled", "CursorMoved", "CursorMovedI" },
   function() ui.render() end
 )

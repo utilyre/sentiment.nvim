@@ -13,7 +13,7 @@ local M = {}
 ---@param reversed boolean Whether to look backwards.
 ---@return tuple<integer, integer>|nil
 ---@return string|nil
-local function find_pair(portion, reversed)
+local function find_side(portion, reversed)
   local remaining = 0
 
   for cursor, char in portion:iter(reversed) do
@@ -41,7 +41,7 @@ end
 ---@param right string Right side of the desired pair.
 ---@param reversed boolean Whether to look backwards.
 ---@return tuple<integer, integer>|nil
-local function find_other_pair(portion, left, right, reversed)
+local function find_other_side(portion, left, right, reversed)
   local remaining = 0
 
   for cursor, char in portion:iter(reversed) do
@@ -56,7 +56,7 @@ local function find_other_pair(portion, left, right, reversed)
   return nil
 end
 
-local function find_pairs(portion, cursor)
+local function find_pair(portion, cursor)
   local under_cursor = portion:get_current_char()
   local pair = Pair.new()
 
@@ -64,34 +64,34 @@ local function find_pairs(portion, cursor)
   local left = config.get_left_by_right(under_cursor)
   if right ~= nil then
     pair.left = cursor
-    pair.right = find_other_pair(portion, under_cursor, right, false)
+    pair.right = find_other_side(portion, under_cursor, right, false)
   elseif left ~= nil then
-    pair.left = find_other_pair(portion, left, under_cursor, true)
+    pair.left = find_other_side(portion, left, under_cursor, true)
     pair.right = cursor
   else
     if portion:is_upper() then
       local found_left = nil
-      pair.left, found_left = find_pair(portion, true)
+      pair.left, found_left = find_side(portion, true)
 
       if found_left == nil then
-        pair.right = find_pair(portion, false)
+        pair.right = find_side(portion, false)
       else
         local found_right = config.get_right_by_left(found_left)
         ---@cast found_right -nil
 
-        pair.right = find_other_pair(portion, found_left, found_right, false)
+        pair.right = find_other_side(portion, found_left, found_right, false)
       end
     else
       local found_right = nil
-      pair.right, found_right = find_pair(portion, false)
+      pair.right, found_right = find_side(portion, false)
 
       if found_right == nil then
-        pair.left = find_pair(portion, true)
+        pair.left = find_side(portion, true)
       else
         local found_left = config.get_left_by_right(found_right)
         ---@cast found_left -nil
 
-        pair.left = find_other_pair(portion, found_left, found_right, true)
+        pair.left = find_other_side(portion, found_left, found_right, true)
       end
     end
   end
@@ -128,7 +128,7 @@ function M.render(win)
       return
     end
 
-    local pair = find_pairs(portion, cursor)
+    local pair = find_pair(portion, cursor)
 
     M.clear(buf)
     vim.api.nvim_buf_set_var(

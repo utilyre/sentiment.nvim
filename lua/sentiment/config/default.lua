@@ -13,7 +13,7 @@ local Config = {
   excluded_filetypes = {},
 
   ---How much should the cursor stay still (in milliseconds) to calculate and
-  ---render the pairs.
+  ---render a pair.
   ---
   ---NOTE: It's recommended to set this somewhere above and close to your key
   ---repeat speed in order to keep the calculations at minimum.
