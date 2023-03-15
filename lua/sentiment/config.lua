@@ -34,9 +34,7 @@ end
 ---
 ---@param mode string Mode to be checked.
 ---@return boolean
-function M.is_mode_included(mode)
-  return cfg.included_modes[mode]
-end
+function M.is_mode_included(mode) return cfg.included_modes[mode] end
 
 ---Get `delay`.
 ---
