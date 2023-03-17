@@ -119,6 +119,8 @@ outer pair.
 
   ---List of `(left, right)` pairs.
   ---
+  ---NOTE: Both sides of a pair can't have the same character.
+  ---
   ---@type tuple<string, string>[]
   pairs = {
     { "(", ")" },
