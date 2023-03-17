@@ -15,11 +15,11 @@ local function create_user_commands()
   })
 end
 
----Load and setup the plugin with an optional config table.
+---Load and setup the plugin with an optional `Config`.
 ---
 ---NOTE: Calling this disables the builtin matchparen plugin.
 ---
----@param cfg? Config User config to be applied.
+---@param cfg? Config User `Config` to be applied.
 function M.setup(cfg)
   vim.g.loaded_matchparen = 1
   manager.apply(cfg or {})

@@ -3,7 +3,7 @@ local default = require("sentiment.config.default")
 
 local M = {}
 
----Lint config and error if there are any problems.
+---Lint `Config` and error if there are any problems.
 ---
 ---@param cfg Config Config to be linted.
 local function lint(cfg)
@@ -20,9 +20,9 @@ local function lint(cfg)
   end
 end
 
----Override the default config.
+---Override the default `Config`.
 ---
----@param cfg Config Config to override.
+---@param cfg Config `Config` to override with.
 function M.apply(cfg)
   cfg = vim.tbl_deep_extend("force", default, cfg)
 

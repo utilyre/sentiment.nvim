@@ -7,9 +7,9 @@ local cfg = default
 local left_to_right = {}
 local right_to_left = {}
 
----Set config to a new value.
+---Set global `Config` to a new value.
 ---
----@param c Config New config value.
+---@param c Config New `Config` value.
 function M.set(c)
   cfg = c
 
