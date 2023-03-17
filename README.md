@@ -95,6 +95,14 @@ outer pair.
   ---@type table<string, boolean>
   excluded_filetypes = {},
 
+  ---Dictionary to check whether a mode should be included.
+  ---
+  ---@type table<string, boolean>
+  included_modes = {
+    n = true,
+    i = true,
+  },
+
   ---How much (in milliseconds) should the cursor stay still to calculate and
   ---render a pair.
   ---
