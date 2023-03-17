@@ -125,7 +125,7 @@ function M.render(win)
   local buf = vim.api.nvim_win_get_buf(win)
   if
     not config.is_buffer_included(buf)
-    or not config.is_mode_included(vim.fn.mode())
+    or not config.is_current_mode_included()
   then
     M.clear(buf)
     return

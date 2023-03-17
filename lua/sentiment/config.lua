@@ -30,11 +30,13 @@ function M.is_buffer_included(buf)
   return cfg.included_buftypes[buftype] and not cfg.excluded_filetypes[filetype]
 end
 
----Check whether a mode is included.
+---Check whether the current mode is included.
 ---
----@param mode string Mode to be checked.
 ---@return boolean
-function M.is_mode_included(mode) return cfg.included_modes[mode] end
+function M.is_current_mode_included()
+  local mode = vim.fn.mode()
+  return cfg.included_modes[mode]
+end
 
 ---Get `delay`.
 ---
