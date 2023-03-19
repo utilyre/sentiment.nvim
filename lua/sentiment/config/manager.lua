@@ -11,10 +11,11 @@ local function lint(cfg)
     if pair[1] == pair[2] then
       error(
         string.format(
-          "both sides of a pair can't have the same character: (%s, %s)",
+          "`pairs`: both sides of a pair can't have the same character",
           pair[1],
           pair[2]
-        )
+        ),
+        4
       )
     end
   end
