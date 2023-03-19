@@ -87,14 +87,14 @@ end
 ---@param reversed boolean Whether to iterate backwards.
 ---@return fun(): tuple<integer, integer>, string
 function Portion:iter(reversed)
-  local coefficient = reversed and -1 or 1
+  local factor = reversed and -1 or 1
   local cursor = self:get_cursor()
 
   return function()
     local line = self:get_line(cursor[1])
-    cursor[2] = cursor[2] + coefficient
+    cursor[2] = cursor[2] + factor
     if utils.ternary(reversed, cursor[2] < 1, cursor[2] > #line) then
-      cursor[1] = cursor[1] + coefficient
+      cursor[1] = cursor[1] + factor
       if
         utils.ternary(
           reversed,
