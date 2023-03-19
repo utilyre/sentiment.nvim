@@ -75,6 +75,16 @@ outer pair.
 
     Re-enable the plugin.
 
+## 🎨 Highlight
+
+This plugin re-uses the widely supported `MatchParen` highlight group of the
+former [matchparen.vim][matchparen.vim] plugin.
+
+See [`help nvim_set_hl()`][nvim_set_hl] for how you can change it.
+
+[matchparen.vim]: https://github.com/neovim/neovim/blob/master/runtime/plugin/matchparen.vim
+[nvim_set_hl]: https://neovim.io/doc/user/api.html#nvim_set_hl()
+
 ## 🚠 Configuration
 
 <details>
