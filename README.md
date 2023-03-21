@@ -5,8 +5,6 @@
 Enhanced [matchparen.vim][matchparen.vim] plugin for Neovim to highlight the
 outer pair.
 
-[matchparen.vim]: https://github.com/neovim/neovim/blob/master/runtime/plugin/matchparen.vim
-
 </div>
 
 ## 📹 Demo
@@ -16,8 +14,6 @@ outer pair.
 
 [demo.webm](https://user-images.githubusercontent.com/91974155/223225880-2b22dcda-3d38-4a9f-82d5-0e76c0c789e7.webm)
 
-[nvim-autopairs]: https://github.com/windwp/nvim-autopairs
-
 ## ✨ Features
 
 -   🚀 Performance (**Blazingly Fast!!!**).
@@ -26,8 +22,6 @@ outer pair.
     [matchparen.vim][matchparen.vim] to be there.
 
 -   👍 Ease of use.
-
-[matchparen.vim]: https://github.com/neovim/neovim/blob/master/runtime/plugin/matchparen.vim
 
 ## 📦 Installation
 
@@ -61,10 +55,6 @@ outer pair.
     }
     ```
 
-[matchparen.vim]: https://github.com/neovim/neovim/blob/master/runtime/plugin/matchparen.vim
-[lazy.nvim]: https://github.com/folke/lazy.nvim
-[packer.nvim]: https://github.com/wbthomason/packer.nvim
-
 ## 🎮 Usage
 
 -   `require("sentiment").disable()`, `:NoMatchParen`
@@ -81,9 +71,6 @@ This plugin re-uses the widely supported `MatchParen` highlight group of the
 former [matchparen.vim][matchparen.vim] plugin.
 
 See [`:help nvim_set_hl()`][nvim_set_hl] for how you can change it.
-
-[matchparen.vim]: https://github.com/neovim/neovim/blob/master/runtime/plugin/matchparen.vim
-[nvim_set_hl]: https://neovim.io/doc/user/api.html#nvim_set_hl()
 
 ## 🚠 Configuration
 
@@ -141,3 +128,9 @@ See [`:help nvim_set_hl()`][nvim_set_hl] for how you can change it.
 ```
 
 </details>
+
+[matchparen.vim]: https://github.com/neovim/neovim/blob/master/runtime/plugin/matchparen.vim
+[nvim-autopairs]: https://github.com/windwp/nvim-autopairs
+[lazy.nvim]: https://github.com/folke/lazy.nvim
+[packer.nvim]: https://github.com/wbthomason/packer.nvim
+[nvim_set_hl]: https://neovim.io/doc/user/api.html#nvim_set_hl()
