@@ -4,7 +4,7 @@ local ui = require("sentiment.ui")
 
 local M = {}
 
----Create matchparen.vim style user commands.
+---Create `matchparen.vim` style user commands.
 local function create_user_commands()
   vim.api.nvim_create_user_command("NoMatchParen", function() M.disable() end, {
     desc = "Disable the plugin",
@@ -17,7 +17,7 @@ end
 
 ---Load and setup the plugin with an optional `Config`.
 ---
----NOTE: Calling this disables the builtin matchparen plugin.
+---NOTE: Calling this disables the builtin `matchparen.vim` plugin.
 ---
 ---@param cfg? Config User `Config` to be applied.
 function M.setup(cfg)
