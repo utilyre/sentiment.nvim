@@ -8,7 +8,7 @@ M.renderer = Autocmd.new({
   name = "renderer",
   desc = "Render pair",
   events = {
-    "BufReadPre",
+    "BufWinEnter",
     "WinScrolled",
     "ModeChanged",
     "CursorMoved",
