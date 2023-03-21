@@ -4,12 +4,17 @@ local ui = require("sentiment.ui")
 local M = {}
 
 ---`Pair` renderer.
-M.renderer = Autocmd.new("renderer", "Render pair", {
-  "BufWinEnter",
-  "WinScrolled",
-  "ModeChanged",
-  "CursorMoved",
-  "CursorMovedI",
-}, function() ui.render() end)
+M.renderer = Autocmd.new({
+  name = "renderer",
+  desc = "Render pair",
+  events = {
+    "BufWinEnter",
+    "WinScrolled",
+    "ModeChanged",
+    "CursorMoved",
+    "CursorMovedI",
+  },
+  callback = function() ui.render() end,
+})
 
 return M

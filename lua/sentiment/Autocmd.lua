@@ -7,6 +7,12 @@
 ---@field public file string File name of the buffer being manipulated.
 ---@field public data any Passed arbitrary data.
 
+---@class AutocmdSpec
+---@field public name string Name used for creating its augroup.
+---@field public desc string Documentation for troubleshooting.
+---@field public events string[] Events that will trigger the handler.
+---@field public callback fun(args: AutocmdArgs): boolean|nil Called when any of the events are triggered.
+
 ---@class Autocmd
 ---@field private id integer|nil Autocmd ID.
 ---@field private name string Name used for creating its augroup.
@@ -17,18 +23,15 @@ local Autocmd = {}
 
 ---Create a new instance of Autocmd.
 ---
----@param name string Name used for creating its augroup.
----@param desc string Documentation for troubleshooting.
----@param events string[] Events that will trigger the handler.
----@param callback fun(args: AutocmdArgs): boolean|nil Called when any of the events are triggered.
+---@param spec AutocmdSpec Autocmd specification.
 ---@return Autocmd
-function Autocmd.new(name, desc, events, callback)
+function Autocmd.new(spec)
   local instance = setmetatable({}, { __index = Autocmd })
 
-  instance.name = name
-  instance.desc = desc
-  instance.events = events
-  instance.callback = callback
+  instance.name = spec.name
+  instance.desc = spec.desc
+  instance.events = spec.events
+  instance.callback = spec.callback
 
   return instance
 end
