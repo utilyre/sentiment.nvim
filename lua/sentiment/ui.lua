@@ -132,6 +132,7 @@ function M.render(win)
   end
 
   local prev_cursor = vim.api.nvim_win_get_cursor(win)
+  prev_cursor[2] = prev_cursor[2] + 1
   vim.defer_fn(function()
     if
       not vim.api.nvim_win_is_valid(win)
@@ -142,9 +143,7 @@ function M.render(win)
 
     local portion = Portion.new(win, config.get_limit())
     local cursor = portion:get_cursor()
-    if cursor[1] ~= prev_cursor[1] or cursor[2] ~= prev_cursor[2] + 1 then
-      return
-    end
+    if not vim.deep_equal(cursor, prev_cursor) then return end
 
     M.clear(buf)
     vim.api.nvim_buf_set_var(
