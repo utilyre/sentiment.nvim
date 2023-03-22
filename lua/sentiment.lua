@@ -1,6 +1,5 @@
 local manager = require("sentiment.config.manager")
 local autocmds = require("sentiment.autocmds")
-local ui = require("sentiment.ui")
 
 local M = {}
 
@@ -24,28 +23,14 @@ function M.setup(cfg)
   vim.g.loaded_matchparen = 1
   manager.apply(cfg or {})
 
-  autocmds.renderer:create()
+  autocmds.start_rendering()
   create_user_commands()
 end
 
 ---Disable the plugin.
-function M.disable()
-  if not autocmds.renderer:exists() then return end
-
-  autocmds.renderer:remove()
-  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-    ui.clear(buf)
-  end
-end
+function M.disable() autocmds.stop_rendering() end
 
 ---Re-enable the plugin.
-function M.enable()
-  if autocmds.renderer:exists() then return end
-
-  for _, win in ipairs(vim.api.nvim_list_wins()) do
-    ui.render(win)
-  end
-  autocmds.renderer:create()
-end
+function M.enable() autocmds.start_rendering() end
 
 return M
