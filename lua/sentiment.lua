@@ -42,10 +42,10 @@ end
 function M.enable()
   if autocmds.renderer:exists() then return end
 
-  autocmds.renderer:create()
   for _, win in ipairs(vim.api.nvim_list_wins()) do
     ui.render(win)
   end
+  autocmds.renderer:create()
 end
 
 return M
