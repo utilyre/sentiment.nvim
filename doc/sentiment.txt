@@ -7,6 +7,7 @@ Table of Contents                                *sentiment-table-of-contents*
   - Features                                              |sentiment-features|
   - Installation                                      |sentiment-installation|
   - Usage                                                    |sentiment-usage|
+  - Highlight                                            |sentiment-highlight|
   - Configuration                                    |sentiment-configuration|
 
 
@@ -68,6 +69,16 @@ USAGE                                                        *sentiment-usage*
     Disable the plugin.
 - `require("sentiment").enable()`, `:DoMatchParen`
     Re-enable the plugin.
+
+
+HIGHLIGHT                                                *sentiment-highlight*
+
+This plugin re-uses the widely supported `MatchParen` highlight group of the
+former matchparen.vim
+<https://github.com/neovim/neovim/blob/master/runtime/plugin/matchparen.vim>
+plugin.
+
+See |`:help nvim_set_hl()`| for how you can change it.
 
 
 CONFIGURATION                                        *sentiment-configuration*
