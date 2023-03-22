@@ -53,14 +53,6 @@ function Portion:get_top() return self.viewport[1] end
 ---@return integer
 function Portion:get_bottom() return self.viewport[2] end
 
----Check whether the cursor is on the upper part of `Portion`.
----
----@return boolean
-function Portion:is_upper()
-  local half = (self:get_bottom() - self:get_top()) / 2
-  return (self.cursor[1] - self:get_top()) < half
-end
-
 ---Get the nth line.
 ---
 ---@private

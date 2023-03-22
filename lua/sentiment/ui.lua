@@ -74,30 +74,16 @@ local function find_pair(portion)
     pair.left = find_other_side(portion, left, under_cursor, true)
     pair.right = cursor
   else
-    if portion:is_upper() then
-      local found_left = nil
-      pair.left, found_left = find_side(portion, true)
+    local found_left = nil
+    pair.left, found_left = find_side(portion, true)
 
-      if found_left == nil then
-        pair.right = find_side(portion, false)
-      else
-        local found_right = config.get_right_by_left(found_left)
-        ---@cast found_right -nil
-
-        pair.right = find_other_side(portion, found_left, found_right, false)
-      end
+    if found_left == nil then
+      pair.right = find_side(portion, false)
     else
-      local found_right = nil
-      pair.right, found_right = find_side(portion, false)
+      local found_right = config.get_right_by_left(found_left)
+      ---@cast found_right -nil
 
-      if found_right == nil then
-        pair.left = find_side(portion, true)
-      else
-        local found_left = config.get_left_by_right(found_right)
-        ---@cast found_left -nil
-
-        pair.left = find_other_side(portion, found_left, found_right, true)
-      end
+      pair.right = find_other_side(portion, found_left, found_right, false)
     end
   end
 
