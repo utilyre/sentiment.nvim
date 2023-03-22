@@ -120,6 +120,7 @@ end
 ---Calculate and draw the found `Pair`.
 ---
 ---@param win? window Window to be rendered inside.
+---@return timer|nil
 function M.render(win)
   win = win or vim.api.nvim_get_current_win()
   local buf = vim.api.nvim_win_get_buf(win)
@@ -133,7 +134,7 @@ function M.render(win)
 
   local prev_cursor = vim.api.nvim_win_get_cursor(win)
   prev_cursor[2] = prev_cursor[2] + 1
-  vim.defer_fn(function()
+  return vim.defer_fn(function()
     if
       not vim.api.nvim_win_is_valid(win)
       or not vim.api.nvim_buf_is_valid(buf)
