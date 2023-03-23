@@ -43,7 +43,7 @@ outer pair.
 -   [packer.nvim][packer.nvim]
 
     ```lua
-    {
+    use({
       "utilyre/sentiment.nvim",
       tag = "*",
       config = function()
@@ -51,7 +51,7 @@ outer pair.
           -- config
         })
       end,
-    }
+    })
     ```
 
 ## 🎮 Usage
