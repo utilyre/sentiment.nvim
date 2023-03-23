@@ -5,6 +5,12 @@ local M = {}
 
 local timer = nil
 
+---Close `timer` safely.
+local function close_timer()
+  if timer == nil or not timer:is_active() then return end
+  timer:close()
+end
+
 local renderer = Autocmd.new({
   name = "renderer",
   desc = "Render pair",
@@ -34,7 +40,7 @@ function M.stop_rendering()
   if not renderer:exists() then return end
 
   renderer:remove()
-  if timer ~= nil and timer:is_active() then timer:close() end
+  close_timer()
 
   for _, buf in ipairs(vim.api.nvim_list_bufs()) do
     ui.clear(buf)
