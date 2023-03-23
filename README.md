@@ -33,7 +33,6 @@ outer pair.
     ```lua
     {
       "utilyre/sentiment.nvim",
-      name = "sentiment",
       version = "*",
       opts = {
         -- config
