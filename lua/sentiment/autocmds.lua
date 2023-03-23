@@ -21,7 +21,10 @@ local renderer = Autocmd.new({
     "CursorMoved",
     "CursorMovedI",
   },
-  callback = function() timer = ui.render() end,
+  callback = function()
+    close_timer()
+    timer = ui.render()
+  end,
 })
 
 ---Start rendering pairs.
