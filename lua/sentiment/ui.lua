@@ -105,6 +105,7 @@ end
 
 ---Calculate and draw the found `Pair`.
 ---
+---@async
 ---@param win? window Window to be rendered inside.
 ---@return timer|nil
 function M.render(win)
