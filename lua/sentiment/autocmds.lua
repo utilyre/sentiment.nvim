@@ -27,6 +27,13 @@ local renderer = Autocmd.new({
   end,
 })
 
+local cleaner = Autocmd.new({
+  name = "cleaner",
+  desc = "Cleanup timer",
+  events = { "VimLeavePre" },
+  callback = function() close_timer() end,
+})
+
 ---Start rendering pairs.
 function M.start_rendering()
   if renderer:exists() then return end
@@ -49,5 +56,8 @@ function M.stop_rendering()
     ui.clear(buf)
   end
 end
+
+---Clean `timer` on `VimLeavePre`
+function M.create_cleaner() cleaner:create() end
 
 return M

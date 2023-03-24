@@ -24,6 +24,7 @@ function M.setup(cfg)
   manager.apply(cfg or {})
 
   autocmds.start_rendering()
+  autocmds.create_cleaner()
   create_user_commands()
 end
 
