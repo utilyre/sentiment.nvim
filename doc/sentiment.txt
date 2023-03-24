@@ -41,7 +41,6 @@ plugin.
     >lua
         {
           "utilyre/sentiment.nvim",
-          name = "sentiment",
           version = "",
           opts = {
             -- config
@@ -50,7 +49,7 @@ plugin.
     <
 - packer.nvim <https://github.com/wbthomason/packer.nvim>
     >lua
-        {
+        use({
           "utilyre/sentiment.nvim",
           tag = "",
           config = function()
@@ -58,7 +57,7 @@ plugin.
               -- config
             })
           end,
-        }
+        })
     <
 
 
