@@ -13,6 +13,32 @@
 ---@field public events string[] Events that will trigger the handler.
 ---@field public callback fun(args: AutocmdArgs): boolean|nil Called when any of the events are triggered.
 
+---Strictly typed helper for `nvim_create_autocmd` and `nvim_del_autocmd` APIs.
+---
+---# Example
+---
+---```lua
+---local Autocmd = require("sentiment.Autocmd")
+---
+-----instantiate it
+---local my_autocmd = Autocmd.new({
+---  name = "my_autocmd",
+---  desc = "This is my autocmd",
+---  events = { "BufEnter" },
+---  callback = function(args)
+---    print(args.buf)
+---  end,
+---})
+---
+----- create it
+---my_autocmd:create()
+---
+----- later on, remove it if needed
+---if my_autocmd:exists() then
+---  my_autocmd:remove()
+---end
+---```
+---
 ---@class Autocmd
 ---@field private id integer|nil Autocmd ID.
 ---@field private name string Name used for creating its augroup.

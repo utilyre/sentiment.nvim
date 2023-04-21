@@ -1,3 +1,17 @@
+---Pair highlighter to reduce boilerplate.
+---
+---# Example
+---
+---```lua
+---local Pair = require("sentiment.ui.Pair")
+---
+----- instantiate it
+---local pair = Pair.new({ 5, 10 }, { 30, 1 })
+---
+----- draw it inside the current buffer with a newly created namespace
+---pair:draw(0, 0)
+---```
+---
 ---@class Pair
 ---@field public left tuple<integer, integer>|nil Left hand side opening character position in `(row, col)` format.
 ---@field public right tuple<integer, integer>|nil Right hand side closing character position in `(row, col)` format.

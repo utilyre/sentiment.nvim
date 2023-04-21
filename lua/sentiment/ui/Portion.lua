@@ -1,5 +1,7 @@
 local utils = require("sentiment.utils")
 
+---Efficient buffer portion reader.
+---
 ---@class Portion
 ---@field private cursor tuple<integer, integer> Cursor position in `(row, col)` format.
 ---@field private viewport tuple<integer, integer> Visible viewport in `(top, bottom)` format.
@@ -70,6 +72,8 @@ end
 ---Iterate over all characters of the `Portion`, ignoring newline characters.
 ---
 ---```lua
+---local Portion = require("sentiment.ui.Portion")
+---
 ---local portion = Portion.new(--[[ ... ]])
 ---for cursor, char in portion:iter(false) do
 ---  -- ...
