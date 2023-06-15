@@ -15,7 +15,7 @@
 
 ---Strictly typed helper for `nvim_create_autocmd` and `nvim_del_autocmd` APIs.
 ---
----# Example
+---# Examples
 ---
 ---```lua
 ---local Autocmd = require("sentiment.Autocmd")

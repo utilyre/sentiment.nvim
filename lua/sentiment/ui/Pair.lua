@@ -1,6 +1,6 @@
 ---Pair highlighter to reduce boilerplate.
 ---
----# Example
+---# Examples
 ---
 ---```lua
 ---local Pair = require("sentiment.ui.Pair")
