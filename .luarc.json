@@ -1,7 +1,16 @@
 {
   "$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
   "diagnostics": {
-    "globals": ["vim"]
+    "globals": [
+      "vim",
+      "describe",
+      "it",
+      "pending",
+      "before_each",
+      "after_each",
+      "clear",
+      "assert"
+    ]
   },
   "format": {
     "enable": false
