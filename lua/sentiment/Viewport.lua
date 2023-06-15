@@ -81,10 +81,17 @@ end
 
 ---Split into multiple `Viewport`s.
 ---
+---# Errors
+---
+---Throws if the `Viewport`'s length is not divisible by `n`.
+---
 ---@param n integer How many `Viewport`s to be split into.
 ---@return Viewport[]
 function Viewport:split(n)
-  local size = self:length() / n
+  local length = self:length()
+  assert(length % n == 0, "`Viewport`'s length must be divisible by `n`")
+
+  local size = length / n
   local viewports = {}
 
   for i = 1, n do
