@@ -48,6 +48,11 @@ function Viewport.with_win(win)
   return Viewport.new(vim.fn.line("w0", win), vim.fn.line("w$", win))
 end
 
+---Returns `Viewport`'s length.
+---
+---@return integer
+function Viewport:length() return self.bot - self.top end
+
 ---Compare two `Viewport`s.
 ---
 ---@param rhs Viewport `Viewport` to be compared with.
@@ -79,7 +84,7 @@ end
 ---@param n integer How many `Viewport`s to be split into.
 ---@return Viewport[]
 function Viewport:split(n)
-  local size = (self.bot - self.top) / n
+  local size = self:length() / n
   local viewports = {}
 
   for i = 1, n do
