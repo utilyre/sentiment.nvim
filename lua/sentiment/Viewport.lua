@@ -11,8 +11,8 @@ local Viewport = {}
 ---
 ---Throws if `top` is greater than `bot`.
 ---
----@param top integer
----@param bot integer
+---@param top integer Number of the very first visible line.
+---@param bot integer Number of the very last visible line.
 ---@return Viewport
 function Viewport.new(top, bot)
   assert(top < bot, "`top` must be less than `bot`")
@@ -25,17 +25,27 @@ function Viewport.new(top, bot)
   return instance
 end
 
+---Create a new instance of `Viewport` and normalize it.
+---
+---@param top integer
+---@param bot integer
+---@return Viewport
+function Viewport.with_normalization(top, bot)
+  if top > bot then
+    local tmp = top
+    top = bot
+    bot = tmp
+  end
+
+  return Viewport.new(top, bot)
+end
+
 ---Create a new instance of `Viewport` given a window.
 ---
----@param win window
+---@param win window Window to take the visible area of.
 ---@return Viewport
 function Viewport.with_win(win)
-  local instance = setmetatable({}, { __index = Viewport })
-
-  instance.top = vim.fn.line("w0", win)
-  instance.bot = vim.fn.line("w$", win)
-
-  return instance
+  return Viewport.new(vim.fn.line("w0", win), vim.fn.line("w$", win))
 end
 
 ---Compare two `Viewport`s.
