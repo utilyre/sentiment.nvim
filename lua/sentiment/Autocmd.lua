@@ -70,9 +70,9 @@ function Autocmd:exists() return self.id ~= nil end
 
 ---Create the autocmd.
 ---
----NOTE: Will throw an error if this instance has already been created.
+---@return boolean success
 function Autocmd:create()
-  if self:exists() then error("autocmd has already been created", 2) end
+  if self:exists() then return false end
 
   local group =
     vim.api.nvim_create_augroup(string.format("sentiment.%s", self.name), {})
@@ -82,16 +82,20 @@ function Autocmd:create()
     group = group,
     callback = self.callback,
   })
+
+  return true
 end
 
 ---Remove the autocmd.
 ---
----NOTE: Will throw an error if this instance hasn't been created yet.
+---@return boolean success
 function Autocmd:remove()
-  if not self:exists() then error("autocmd hasn't been created yet", 2) end
+  if not self:exists() then return false end
 
   vim.api.nvim_del_autocmd(self.id)
   self.id = nil
+
+  return true
 end
 
 return Autocmd
