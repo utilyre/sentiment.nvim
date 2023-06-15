@@ -60,4 +60,19 @@ function Viewport:diff(rhs)
   return deletions, additions
 end
 
+---Split into multiple `Viewport`s.
+---
+---@param n integer How many `Viewport`s to be split into.
+---@return Viewport[]
+function Viewport:split(n)
+  local size = (self.bot - self.top) / n
+  local viewports = {}
+
+  for i = 1, n do
+    table.insert(viewports, Viewport.new(i * size, (i + 1) * size))
+  end
+
+  return viewports
+end
+
 return Viewport
