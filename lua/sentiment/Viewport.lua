@@ -7,6 +7,10 @@ local Viewport = {}
 
 ---Create a new instance of `Viewport`.
 ---
+---# Errors
+---
+---Throws if `top` is greater than `bot`.
+---
 ---@param top integer
 ---@param bot integer
 ---@return Viewport
