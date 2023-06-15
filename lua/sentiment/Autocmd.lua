@@ -49,6 +49,7 @@ local Autocmd = {}
 
 ---Create a new instance of Autocmd.
 ---
+---@nodiscard
 ---@param spec AutocmdSpec Autocmd specification.
 ---@return Autocmd
 function Autocmd.new(spec)
