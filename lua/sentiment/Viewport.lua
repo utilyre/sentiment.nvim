@@ -37,27 +37,27 @@ end
 ---Compare two `Viewport`s.
 ---
 ---@param rhs Viewport `Viewport` to be compared with.
----@return Viewport[] deleted
----@return Viewport[] added
+---@return Viewport[] deletions
+---@return Viewport[] additions
 function Viewport:diff(rhs)
-  local deleted = {}
-  local added = {}
+  local deletions = {}
+  local additions = {}
 
   if self.top < rhs.top then
-    table.insert(deleted, Viewport.new(self.top, rhs.top))
+    table.insert(deletions, Viewport.new(self.top, rhs.top))
   end
   if self.bot < rhs.bot then
-    table.insert(added, Viewport.new(self.bot, rhs.bot))
+    table.insert(additions, Viewport.new(self.bot, rhs.bot))
   end
 
   if self.top > rhs.top then
-    table.insert(added, Viewport.new(rhs.top, self.top))
+    table.insert(additions, Viewport.new(rhs.top, self.top))
   end
   if self.bot > rhs.bot then
-    table.insert(deleted, Viewport.new(rhs.bot, self.bot))
+    table.insert(deletions, Viewport.new(rhs.bot, self.bot))
   end
 
-  return deleted, added
+  return deletions, additions
 end
 
 return Viewport
