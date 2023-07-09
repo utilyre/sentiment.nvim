@@ -11,15 +11,6 @@ describe("`new`", function()
   end)
 end)
 
-describe("`with_normalization`", function()
-  it("swaps `top` and `bot` if `top` is greater than `bot`", function()
-    local vp = Viewport.with_normalization(10, 5)
-
-    assert.is.equal(5, vp.top)
-    assert.is.equal(10, vp.bot)
-  end)
-end)
-
 describe("`diff`", function()
   describe("correctly outputs when", function()
     it("`vp1` is slightly behind `vp2`", function()

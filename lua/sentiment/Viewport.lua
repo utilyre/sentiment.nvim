@@ -25,21 +25,6 @@ function Viewport.new(top, bot)
   return instance
 end
 
----Create a new instance of `Viewport` and normalize it.
----
----@param top integer
----@param bot integer
----@return Viewport
-function Viewport.with_normalization(top, bot)
-  if top > bot then
-    local tmp = top
-    top = bot
-    bot = tmp
-  end
-
-  return Viewport.new(top, bot)
-end
-
 ---Create a new instance of `Viewport` given a window.
 ---
 ---@param win window Window to take the visible area of.
