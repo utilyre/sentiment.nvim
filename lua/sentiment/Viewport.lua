@@ -37,7 +37,7 @@ end
 ---Returns `Viewport`'s length.
 ---
 ---@return integer
-function Viewport:length() return self.bot - self.top end
+function Viewport:length() return self.bot - self.top + 1 end
 
 ---Compare two `Viewport`s.
 ---
@@ -65,26 +65,24 @@ function Viewport:diff(rhs)
   return deletions, additions
 end
 
----Split into multiple `Viewport`s.
+---Split into multiple parts.
 ---
----# Errors
----
----Throws if the `Viewport`'s length is not divisible by `n`.
----
----@param n integer How many `Viewport`s to be split into.
+---@param length integer Maximum length of each part.
 ---@return Viewport[]
-function Viewport:split(n)
-  local length = self:length()
-  assert(length % n == 0, "`Viewport`'s length must be divisible by `n`")
+function Viewport:split(length)
+  local parts = {}
 
-  local size = length / n
-  local viewports = {}
-
-  for i = 1, n do
-    table.insert(viewports, Viewport.new(i * size, (i + 1) * size))
+  for i = 1, math.ceil(self:length() / length) do
+    table.insert(
+      parts,
+      Viewport.new(
+        (i - 1) * length + self.top,
+        math.min(i * length + self.top - 1, self.top + self:length() - 1)
+      )
+    )
   end
 
-  return viewports
+  return parts
 end
 
 ---@param a Viewport
