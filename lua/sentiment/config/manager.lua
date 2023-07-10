@@ -9,14 +9,11 @@ local M = {}
 local function lint(cfg)
   for _, pair in ipairs(cfg.pairs) do
     if pair[1] == pair[2] then
-      error(
-        string.format(
-          "`pairs`: both sides of a pair can't have the same character",
-          pair[1],
-          pair[2]
-        ),
-        4
-      )
+      error("`pairs`: both sides of a pair can't have the same character", 4)
+    end
+
+    if #pair[1] > 1 or #pair[2] > 1 then
+      error("`pairs`: each side of a pair should be a single character", 4)
     end
   end
 end
