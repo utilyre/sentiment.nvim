@@ -1,10 +1,10 @@
 local Chunk = require("sentiment.Chunk")
-local Viewport = require("sentiment.Viewport")
+local Region = require("sentiment.Region")
 local Position = require("sentiment.Position")
 
 describe("`:line()`", function()
   it("works with ASCII", function()
-    local chunk = Chunk.new(Viewport.new(11, 16), {
+    local chunk = Chunk.new(Region.new(11, 16), {
       "", -- 11
       "hi there", -- 12
       "this is third", -- 13
@@ -22,7 +22,7 @@ describe("`:line()`", function()
   end)
 
   it("works with Unicode", function()
-    local chunk = Chunk.new(Viewport.new(25, 28), {
+    local chunk = Chunk.new(Region.new(25, 28), {
       "😀 hello", -- 25
       "wanna play some 🎮 games?", -- 26
       "", -- 27
@@ -40,7 +40,7 @@ end)
 
 describe("`:chars()`", function()
   it("works with ASCII", function()
-    local chunk = Chunk.new(Viewport.new(14, 17), {
+    local chunk = Chunk.new(Region.new(14, 17), {
       "hi", -- 14
       "stuff", -- 15
       "E", -- 16
