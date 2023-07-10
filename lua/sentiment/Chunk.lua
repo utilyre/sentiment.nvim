@@ -25,18 +25,19 @@ end
 
 ---Create a new instance of `Chunk` given a window.
 ---
----@param win window Window to take the visible area of.
+---@param region Region Area to operate on.
+---@param win window Window to take the `Region` of.
 ---@return Chunk
-function Chunk.from_win(win)
-  local region = Region.from_win(win)
-  local lines = vim.api.nvim_buf_get_lines(
-    vim.api.nvim_win_get_buf(win),
-    region.top - 1,
-    region.bot,
-    true
+function Chunk.from_region(region, win)
+  return Chunk.new(
+    region,
+    vim.api.nvim_buf_get_lines(
+      vim.api.nvim_win_get_buf(win),
+      region.top - 1,
+      region.bot,
+      true
+    )
   )
-
-  return Chunk.new(region, lines)
 end
 
 ---Get the `n`th line.
