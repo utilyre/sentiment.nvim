@@ -47,6 +47,9 @@ function Chunk:line(n) return self.lines[n - self.viewport.top + 1] end
 
 ---Iterate over characters, ignoring newlines.
 ---
+---NOTE: There's no guarantee for yielded values to stay the same after each
+---iteration.
+---
 ---```lua
 ---for position, char in chunk:chars() do
 ---  -- ...
