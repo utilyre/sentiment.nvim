@@ -4,6 +4,7 @@
 ---@field public top integer Number of the very first visible line.
 ---@field public bot integer Number of the very last visible line.
 local Viewport = {}
+local metatable = { __index = Viewport }
 
 ---Create a new instance of `Viewport`.
 ---
@@ -17,7 +18,7 @@ local Viewport = {}
 function Viewport.new(top, bot)
   assert(top < bot, "`top` must be less than `bot`")
 
-  local instance = setmetatable({}, { __index = Viewport })
+  local instance = setmetatable({}, metatable)
 
   instance.top = top
   instance.bot = bot

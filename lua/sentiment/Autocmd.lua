@@ -46,6 +46,7 @@
 ---@field private events string[] Events that will trigger the handler.
 ---@field private callback fun(args: AutocmdArgs): boolean|nil Called when any of the events are triggered.
 local Autocmd = {}
+local metatable = { __index = Autocmd }
 
 ---Create a new instance of Autocmd.
 ---
@@ -53,7 +54,7 @@ local Autocmd = {}
 ---@param spec AutocmdSpec Autocmd specification.
 ---@return Autocmd
 function Autocmd.new(spec)
-  local instance = setmetatable({}, { __index = Autocmd })
+  local instance = setmetatable({}, metatable)
 
   instance.name = spec.name
   instance.desc = spec.desc
