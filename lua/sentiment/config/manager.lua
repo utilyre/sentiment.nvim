@@ -7,8 +7,6 @@ local M = {}
 ---
 ---@param cfg Config Config to be linted.
 local function lint(cfg)
-  if cfg.delay < 0 then error("`delay`: can't be a negative integer", 4) end
-
   for _, pair in ipairs(cfg.pairs) do
     if pair[1] == pair[2] then
       error(

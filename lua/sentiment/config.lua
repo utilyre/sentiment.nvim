@@ -38,16 +38,6 @@ function M.is_current_mode_included()
   return cfg.included_modes[mode]
 end
 
----Get `delay`.
----
----@return integer
-function M.get_delay() return cfg.delay end
-
----Get `limit`.
----
----@return integer
-function M.get_limit() return cfg.limit end
-
 ---Get the corresponding right pair of a left pair.
 ---
 ---@param left string Left side of pair.

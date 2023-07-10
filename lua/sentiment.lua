@@ -1,5 +1,4 @@
 local manager = require("sentiment.config.manager")
-local autocmds = require("sentiment.autocmds")
 
 local M = {}
 
@@ -23,15 +22,19 @@ function M.setup(cfg)
   vim.g.loaded_matchparen = 1
   manager.apply(cfg or {})
 
-  autocmds.start_rendering()
-  autocmds.create_cleaner()
   create_user_commands()
+
+  -- TODO: do the actual thing
 end
 
 ---Disable the plugin.
-function M.disable() autocmds.stop_rendering() end
+function M.disable()
+  -- TODO
+end
 
 ---Re-enable the plugin.
-function M.enable() autocmds.start_rendering() end
+function M.enable()
+  -- TODO
+end
 
 return M
