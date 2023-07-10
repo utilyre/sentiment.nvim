@@ -99,20 +99,6 @@ See [`:help nvim_set_hl()`][nvim_set_hl] for how you can change it.
     i = true,
   },
 
-  ---How much (in milliseconds) should the cursor stay still to calculate and
-  ---render a pair.
-  ---
-  ---NOTE: It's recommended to set this somewhere above and close to your key
-  ---repeat speed in order to keep the calculations at minimum.
-  ---
-  ---@type integer
-  delay = 50,
-
-  ---How many lines to look backwards/forwards to find a pair.
-  ---
-  ---@type integer
-  limit = 100,
-
   ---List of `(left, right)` pairs.
   ---
   ---NOTE: Both sides of a pair can't have the same character.
