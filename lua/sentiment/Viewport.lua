@@ -30,7 +30,7 @@ end
 ---
 ---@param win window Window to take the visible area of.
 ---@return Viewport
-function Viewport.with_win(win)
+function Viewport.from_win(win)
   return Viewport.new(vim.fn.line("w0", win), vim.fn.line("w$", win))
 end
 
