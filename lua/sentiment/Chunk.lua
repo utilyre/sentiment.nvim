@@ -42,7 +42,7 @@ end
 ---Get the `n`th line.
 ---
 ---@param n integer Line index to get.
----@return string
+---@return string|nil
 function Chunk:line(n) return self.lines[n - self.viewport.top + 1] end
 
 ---Iterate over characters, ignoring newlines.
@@ -71,6 +71,7 @@ function Chunk:chars()
       position.character = 1
     end
 
+    ---@cast line -nil
     return position, line:sub(position.character, position.character)
   end
 end
