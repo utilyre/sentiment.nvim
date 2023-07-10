@@ -16,55 +16,39 @@ describe("`diff`", function()
     it("`vp1` is slightly behind `vp2`", function()
       local vp1 = Viewport.new(2, 7)
       local vp2 = Viewport.new(5, 10)
-
       local deletions, additions = vp1:diff(vp2)
 
-      assert.is.equal(2, deletions[1].top)
-      assert.is.equal(5, deletions[1].bot)
-
-      assert.is.equal(7, additions[1].top)
-      assert.is.equal(10, additions[1].bot)
+      assert.is.equal(Viewport.new(2, 5), deletions[1])
+      assert.is.equal(Viewport.new(7, 10), additions[1])
     end)
 
     it("`vp1` is slightly ahead `vp2`", function()
       local vp1 = Viewport.new(5, 10)
       local vp2 = Viewport.new(2, 7)
-
       local deletions, additions = vp1:diff(vp2)
 
-      assert.is.equal(7, deletions[1].top)
-      assert.is.equal(10, deletions[1].bot)
-
-      assert.is.equal(2, additions[1].top)
-      assert.is.equal(5, additions[1].bot)
+      assert.is.equal(Viewport.new(7, 10), deletions[1])
+      assert.is.equal(Viewport.new(2, 5), additions[1])
     end)
 
     it("`vp1` contains `vp2`", function()
       local vp1 = Viewport.new(2, 10)
       local vp2 = Viewport.new(5, 7)
-
       local deletions, additions = vp1:diff(vp2)
 
-      assert.is.equal(2, deletions[1].top)
-      assert.is.equal(5, deletions[1].bot)
-      assert.is.equal(7, deletions[2].top)
-      assert.is.equal(10, deletions[2].bot)
-
+      assert.is.equal(Viewport.new(2, 5), deletions[1])
+      assert.is.equal(Viewport.new(7, 10), deletions[2])
       assert.is.equal(0, #additions)
     end)
 
     it("`vp1` is contained by `vp2`", function()
       local vp1 = Viewport.new(5, 7)
       local vp2 = Viewport.new(2, 10)
-
       local deletions, additions = vp1:diff(vp2)
 
       assert.is.equal(0, #deletions)
-
-      assert.is.equal(7, additions[1].top)
-      assert.is.equal(10, additions[1].bot)
-      assert.is.equal(2, additions[2].top)
-      assert.is.equal(5, additions[2].bot)
+      assert.is.equal(Viewport.new(7, 10), additions[1])
+      assert.is.equal(Viewport.new(2, 5), additions[2])
     end)
   end)
 end)
@@ -76,17 +60,10 @@ describe("`split`", function()
       local vp = Viewport.new(2, 10)
       local parts = vp:split(4)
 
-      assert.is.equal(2, parts[1].top)
-      assert.is.equal(4, parts[1].bot)
-
-      assert.is.equal(4, parts[2].top)
-      assert.is.equal(6, parts[2].bot)
-
-      assert.is.equal(6, parts[3].top)
-      assert.is.equal(8, parts[3].bot)
-
-      assert.is.equal(8, parts[4].top)
-      assert.is.equal(10, parts[4].bot)
+      assert.is.equal(Viewport.new(2, 4), parts[1])
+      assert.is.equal(Viewport.new(4, 6), parts[2])
+      assert.is.equal(Viewport.new(6, 8), parts[3])
+      assert.is.equal(Viewport.new(8, 10), parts[4])
     end
   )
 

@@ -87,4 +87,9 @@ function Viewport:split(n)
   return viewports
 end
 
+---@param a Viewport
+---@param b Viewport
+---@return boolean
+function metatable.__eq(a, b) return a.top == b.top and a.bot == b.bot end
+
 return Viewport
