@@ -1,8 +1,8 @@
----Visible area of buffer.
+---Area of buffer.
 ---
 ---@class Viewport
----@field public top integer Number of the very first visible line.
----@field public bot integer Number of the very last visible line.
+---@field public top integer Index of the very first visible line.
+---@field public bot integer Index of the very last visible line.
 local Viewport = {}
 local metatable = { __index = Viewport }
 
@@ -12,8 +12,8 @@ local metatable = { __index = Viewport }
 ---
 ---Throws if `top` is greater than `bot`.
 ---
----@param top integer Number of the very first visible line.
----@param bot integer Number of the very last visible line.
+---@param top integer Index of the very first visible line.
+---@param bot integer Index of the very last visible line.
 ---@return Viewport
 function Viewport.new(top, bot)
   if top > bot then error("`top` must be less than `bot`", 2) end
