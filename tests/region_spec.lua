@@ -57,16 +57,13 @@ describe("`:split()`", function()
     assert.is.equal(Region.new(9, 10), parts[4])
   end)
 
-  it(
-    "works when length is not divisible by the given `n`",
-    function()
-      local a = Region.new(2, 20)
-      local parts = a:split(5)
+  it("works when length is not divisible by the given `n`", function()
+    local a = Region.new(2, 20)
+    local parts = a:split(5)
 
-      assert.is.equal(Region.new(2, 6), parts[1])
-      assert.is.equal(Region.new(7, 11), parts[2])
-      assert.is.equal(Region.new(12, 16), parts[3])
-      assert.is.equal(Region.new(17, 20), parts[4])
-    end
-  )
+    assert.is.equal(Region.new(2, 6), parts[1])
+    assert.is.equal(Region.new(7, 11), parts[2])
+    assert.is.equal(Region.new(12, 16), parts[3])
+    assert.is.equal(Region.new(17, 20), parts[4])
+  end)
 end)
