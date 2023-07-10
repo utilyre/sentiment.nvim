@@ -16,7 +16,7 @@ local metatable = { __index = Viewport }
 ---@param bot integer Number of the very last visible line.
 ---@return Viewport
 function Viewport.new(top, bot)
-  assert(top < bot, "`top` must be less than `bot`")
+  if top > bot then error("`top` must be less than `bot`", 2) end
 
   local instance = setmetatable({}, metatable)
 

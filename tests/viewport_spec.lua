@@ -1,13 +1,8 @@
 local Viewport = require("sentiment.Viewport")
 
-local function should_fail(fn)
-  local ok = pcall(fn)
-  assert(not ok, "should have failed")
-end
-
 describe("`new`", function()
   it("does not accept `top` to be greater than `bot`", function()
-    should_fail(function() Viewport.new(10, 5) end)
+    assert.has.error(function() Viewport.new(10, 5) end)
   end)
 end)
 
