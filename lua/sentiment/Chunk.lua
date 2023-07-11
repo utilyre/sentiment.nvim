@@ -1,4 +1,3 @@
-local Region = require("sentiment.Region")
 local Position = require("sentiment.Position")
 
 ---Efficient buffer reader.

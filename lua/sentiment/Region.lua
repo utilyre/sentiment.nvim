@@ -65,26 +65,6 @@ function Region:diff(rhs)
   return deletions, additions
 end
 
----Split into multiple parts.
----
----@param length integer Maximum length of each part.
----@return Region[]
-function Region:split(length)
-  local parts = {}
-
-  for i = 1, math.ceil(self:length() / length) do
-    table.insert(
-      parts,
-      Region.new(
-        (i - 1) * length + self.top,
-        math.min(i * length + self.top - 1, self.top + self:length() - 1)
-      )
-    )
-  end
-
-  return parts
-end
-
 ---@param a Region
 ---@param b Region
 ---@return boolean
